@@ -17,7 +17,8 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import { fadeUp, stagger } from "../lib/motion";
 import {
-  readApplications,
+  hasLocalApplication,
+  hasLocalRegistrationNumber,
   submitApplication,
   syncPendingApplications,
 } from "../lib/applications";
@@ -39,15 +40,24 @@ const branches = [
   "MBA",
 ];
 
-const domains = [
-  "Machine Learning",
-  "Data Science",
+const genders = ["Male", "Female", "Other", "Prefer not to say"];
+
+// Hosteller = lives on campus; Day Scholar / PG = commutes in, either from home
+// or from a rented room off campus.
+const accommodations = ["Hosteller", "Day Scholar / PG"];
+
+// Two separate lists, matching how the club is actually structured: the
+// co-domain is the technical track, the working domain is the team that keeps
+// events, funding and outreach moving. Keep in sync with
+// public.ai_club_co_domains() / public.ai_club_working_domains() in
+// supabase/schema.sql, and with coreDomains / workingDomains in About.jsx.
+const coDomains = ["AI & ML", "AI Security"];
+
+const workingDomains = [
   "Web Development",
-  "Computer Vision",
-  "NLP / Research",
-  "Reinforcement Learning",
-  "Design / Creative",
-  "Event Management",
+  "Media & Graphics",
+  "Management & PR",
+  "Corporate & Finance",
 ];
 
 const perks = [
@@ -59,12 +69,26 @@ const perks = [
   { icon: FiFileText, title: "Certificate & Recognition", desc: "Official club membership certificate and profile on our website." },
 ];
 
-const EMPTY_FORM = { name: "", branch: "", section: "", email: "", phone: "" };
+const EMPTY_FORM = {
+  name: "",
+  gender: "",
+  regNo: "",
+  branch: "",
+  section: "",
+  accommodation: "",
+  email: "",
+  phone: "",
+  coDomain: "",
+  workingDomain: "",
+};
 
 /* ---------------------------------- validation --------------------------------- */
 
 const NAME_RE = /^[A-Za-z][A-Za-z\s.'-]*$/;
 const SECTION_RE = /^[A-Za-z0-9]{1,3}$/;
+// Deliberately loose: KIET has issued more than one roll-number format, and
+// rejecting a real one costs a real applicant their submission.
+const REG_NO_RE = /^[A-Za-z0-9]{6,20}$/;
 // Case-insensitive: students commonly type KIET.edu or Kiet.edu.
 const KIET_EMAIL_RE = /^[A-Za-z0-9._%+-]+@kiet\.edu$/i;
 
@@ -76,9 +100,10 @@ function normalizePhone(raw) {
   return digits;
 }
 
-function validate(form, picked) {
+function validate(form) {
   const errors = {};
   const name = form.name.trim();
+  const regNo = form.regNo.trim();
   const section = form.section.trim();
   const email = form.email.trim();
   const phone = normalizePhone(form.phone);
@@ -87,10 +112,17 @@ function validate(form, picked) {
   else if (name.length < 3) errors.name = "Please enter your full name.";
   else if (!NAME_RE.test(name)) errors.name = "Letters only — no digits or special characters.";
 
+  if (!form.gender) errors.gender = "Select your gender.";
+
+  if (!regNo) errors.regNo = "Enter your university registration number.";
+  else if (!REG_NO_RE.test(regNo)) errors.regNo = "6–20 letters or digits, exactly as printed on your ID card.";
+
   if (!form.branch) errors.branch = "Select your branch.";
 
   if (!section) errors.section = "Enter your section.";
   else if (!SECTION_RE.test(section)) errors.section = "1–3 letters or digits (e.g. A, B2, C).";
+
+  if (!form.accommodation) errors.accommodation = "Tell us where you stay during the semester.";
 
   if (!email) errors.email = "Enter your KIET email address.";
   else if (!KIET_EMAIL_RE.test(email)) errors.email = "Must be your official @kiet.edu address.";
@@ -98,7 +130,10 @@ function validate(form, picked) {
   if (!phone) errors.phone = "Enter your phone number.";
   else if (!/^[6-9]\d{9}$/.test(phone)) errors.phone = "Enter a valid 10-digit Indian mobile number.";
 
-  if (picked.length === 0) errors.domains = "Pick at least one domain you're interested in.";
+  // The working domain is the required pick; the co-domain is the optional one.
+  // The two lists are disjoint now, so there is no same-pick-twice case left to
+  // guard against.
+  if (!form.workingDomain) errors.workingDomain = "Pick the one domain you want to work in.";
 
   return errors;
 }
@@ -157,16 +192,108 @@ function TextField({ name, label, value, error, onChange, hint, className = "", 
   );
 }
 
-/* ---------------------------------- the page ---------------------------------- */
-
-const FOCUS_ORDER = ["name", "branch", "section", "email", "phone", "domains"];
-
 const SELECT_CHEVRON =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='0.45' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")";
 
+function SelectField({ name, label, value, error, onChange, options, placeholder }) {
+  const id = `ru-${name}`;
+  const errorId = error ? `${id}-error` : undefined;
+
+  return (
+    <div>
+      <label htmlFor={id} className="field-label">
+        {label}
+        <Required />
+      </label>
+      <select
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required
+        aria-invalid={error ? "true" : undefined}
+        aria-describedby={errorId}
+        className="field cursor-pointer appearance-none pr-10 [color-scheme:dark]"
+        style={{
+          backgroundImage: SELECT_CHEVRON,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right 12px center",
+          backgroundSize: "18px",
+        }}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      {error && <FieldError id={errorId}>{error}</FieldError>}
+    </div>
+  );
+}
+
+/**
+ * A pick-one pill group. `noneLabel` adds a leading opt-out pill for the group
+ * that is allowed to stay empty.
+ */
+function DomainPicker({ name, legend, note, options, value, error, required, onPick, noneLabel }) {
+  const errorId = error ? `ru-${name}-error` : undefined;
+
+  return (
+    <fieldset className="m-0 min-w-0 border-none p-0">
+      <legend className="field-label p-0">
+        {legend}
+        {required && <Required />}
+        <span className="font-medium text-slate-500"> — {note}</span>
+      </legend>
+      <div className="flex flex-wrap gap-2" aria-describedby={errorId}>
+        {noneLabel && (
+          <button
+            type="button"
+            id={`ru-${name}`}
+            onClick={() => onPick("")}
+            aria-pressed={value === ""}
+            className="filter-pill"
+          >
+            {noneLabel}
+          </button>
+        )}
+        {options.map((option, index) => (
+          <button
+            key={option}
+            id={!noneLabel && index === 0 ? `ru-${name}` : undefined}
+            type="button"
+            onClick={() => onPick(option)}
+            aria-pressed={value === option}
+            className={`filter-pill ${error ? "border-red-400/50" : ""}`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+      {error && <FieldError id={errorId}>{error}</FieldError>}
+    </fieldset>
+  );
+}
+
+/* ---------------------------------- the page ---------------------------------- */
+
+const FOCUS_ORDER = [
+  "name",
+  "gender",
+  "regNo",
+  "branch",
+  "section",
+  "accommodation",
+  "email",
+  "phone",
+  "coDomain",
+  "workingDomain",
+];
+
 function JoinUs() {
   const [form, setForm] = useState(EMPTY_FORM);
-  const [picked, setPicked] = useState([]);
   const [errors, setErrors] = useState({});
   const [attempted, setAttempted] = useState(false);
   const [submitted, setSubmitted] = useState(null);
@@ -180,23 +307,19 @@ function JoinUs() {
     });
   }, []);
 
-  // Once the user has tried to submit, re-check on every keystroke so errors clear live.
-  const revalidate = (nextForm, nextPicked) => {
-    if (attempted) setErrors(validate(nextForm, nextPicked));
-  };
-
-  const updateField = (event) => {
-    const { name, value } = event.target;
-    const next = { ...form, [name]: value };
+  // Once the user has tried to submit, re-check on every change so errors clear live.
+  const patch = (changes) => {
+    const next = { ...form, ...changes };
     setForm(next);
-    revalidate(next, picked);
+    if (attempted) setErrors(validate(next));
   };
 
-  const toggleDomain = (domain) => {
-    const next = picked.includes(domain) ? picked.filter((d) => d !== domain) : [...picked, domain];
-    setPicked(next);
-    revalidate(form, next);
-  };
+  const updateField = (event) => patch({ [event.target.name]: event.target.value });
+
+  // The two lists no longer overlap, so each pick is independent of the other.
+  const pickCoDomain = (domain) => patch({ coDomain: domain });
+
+  const pickWorkingDomain = (domain) => patch({ workingDomain: domain });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -204,12 +327,17 @@ function JoinUs() {
     setAttempted(true);
     setSubmitError("");
 
-    const found = validate(form, picked);
+    const found = validate(form);
     const email = form.email.trim().toLowerCase();
+    const regNo = form.regNo.trim().toUpperCase();
 
-    // Cheap local check first; the table's UNIQUE(email) is what actually enforces this.
-    if (!found.email && readApplications().some((a) => a.email.toLowerCase() === email)) {
+    // Cheap local checks first; the table's two UNIQUE columns are what actually
+    // enforce this.
+    if (!found.email && hasLocalApplication(email)) {
       found.email = "An application with this KIET email already exists.";
+    }
+    if (!found.regNo && hasLocalRegistrationNumber(regNo)) {
+      found.regNo = "An application with this registration number already exists.";
     }
 
     setErrors(found);
@@ -222,11 +350,15 @@ function JoinUs() {
 
     const record = {
       name: form.name.trim().replace(/\s+/g, " "),
+      gender: form.gender,
+      regNo,
       branch: form.branch,
       section: form.section.trim().toUpperCase(),
+      accommodation: form.accommodation,
       email,
       phone: normalizePhone(form.phone),
-      domains: picked,
+      coDomain: form.coDomain || null,
+      workingDomain: form.workingDomain,
       submittedAt: new Date().toISOString(),
     };
 
@@ -257,14 +389,11 @@ function JoinUs() {
 
   const resetForm = () => {
     setForm(EMPTY_FORM);
-    setPicked([]);
     setErrors({});
     setAttempted(false);
     setSubmitted(null);
     setSubmitError("");
   };
-
-  const branchError = errors.branch;
 
   return (
     <motion.div
@@ -349,9 +478,13 @@ function JoinUs() {
 
                   <dl className="mt-8 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-5 text-left text-sm">
                     {[
+                      ["Registration No.", submitted.regNo],
+                      ["Gender", submitted.gender],
                       ["Branch", `${submitted.branch} · Section ${submitted.section}`],
+                      ["Accommodation", submitted.accommodation],
                       ["Phone", submitted.phone],
-                      ["Domains", submitted.domains.join(", ")],
+                      ["Co-Domain", submitted.coDomain || "—"],
+                      ["Working Domain", submitted.workingDomain],
                     ].map(([term, value]) => (
                       <div key={term} className="contents">
                         <dt className="text-slate-500">{term}</dt>
@@ -380,7 +513,9 @@ function JoinUs() {
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
                   <h2 className="text-xl font-black text-white">Recruitment Application</h2>
-                  <p className="mt-1 text-sm text-slate-400">All fields are required. Takes about a minute.</p>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Everything except the co-domain is required. Takes about a minute.
+                  </p>
 
                   <div className="mt-7 grid gap-5">
                     <TextField
@@ -395,38 +530,41 @@ function JoinUs() {
                       maxLength={49}
                     />
 
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <SelectField
+                        name="gender"
+                        label="Gender"
+                        value={form.gender}
+                        error={errors.gender}
+                        onChange={updateField}
+                        options={genders}
+                        placeholder="Select gender"
+                      />
+
+                      <TextField
+                        name="regNo"
+                        label="Registration No."
+                        value={form.regNo}
+                        error={errors.regNo}
+                        onChange={updateField}
+                        type="text"
+                        placeholder="e.g. 202401040123"
+                        maxLength={20}
+                        autoComplete="off"
+                        className="uppercase"
+                      />
+                    </div>
+
                     <div className="grid gap-4 sm:grid-cols-[1.6fr_1fr]">
-                      {/* Branch */}
-                      <div>
-                        <label htmlFor="ru-branch" className="field-label">
-                          Branch
-                          <Required />
-                        </label>
-                        <select
-                          id="ru-branch"
-                          name="branch"
-                          value={form.branch}
-                          onChange={updateField}
-                          required
-                          aria-invalid={branchError ? "true" : undefined}
-                          aria-describedby={branchError ? "ru-branch-error" : undefined}
-                          className="field cursor-pointer appearance-none pr-10 [color-scheme:dark]"
-                          style={{
-                            backgroundImage: SELECT_CHEVRON,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "right 12px center",
-                            backgroundSize: "18px",
-                          }}
-                        >
-                          <option value="">Select branch</option>
-                          {branches.map((branch) => (
-                            <option key={branch} value={branch}>
-                              {branch}
-                            </option>
-                          ))}
-                        </select>
-                        {branchError && <FieldError id="ru-branch-error">{branchError}</FieldError>}
-                      </div>
+                      <SelectField
+                        name="branch"
+                        label="Branch"
+                        value={form.branch}
+                        error={errors.branch}
+                        onChange={updateField}
+                        options={branches}
+                        placeholder="Select branch"
+                      />
 
                       <TextField
                         name="section"
@@ -441,6 +579,16 @@ function JoinUs() {
                         className="uppercase"
                       />
                     </div>
+
+                    <SelectField
+                      name="accommodation"
+                      label="Mode of Accommodation"
+                      value={form.accommodation}
+                      error={errors.accommodation}
+                      onChange={updateField}
+                      options={accommodations}
+                      placeholder="Select accommodation"
+                    />
 
                     <TextField
                       name="email"
@@ -467,32 +615,31 @@ function JoinUs() {
                       maxLength={15}
                     />
 
-                    {/* Domains */}
-                    <fieldset className="m-0 min-w-0 border-none p-0">
-                      <legend className="field-label p-0">
-                        Domains of Interest
-                        <Required />
-                        <span className="font-medium text-slate-500"> — select all that apply</span>
-                      </legend>
-                      <div
-                        className="flex flex-wrap gap-2"
-                        aria-describedby={errors.domains ? "ru-domains-error" : undefined}
-                      >
-                        {domains.map((domain, index) => (
-                          <button
-                            key={domain}
-                            id={index === 0 ? "ru-domains" : undefined}
-                            type="button"
-                            onClick={() => toggleDomain(domain)}
-                            aria-pressed={picked.includes(domain)}
-                            className={`filter-pill ${errors.domains ? "border-red-400/50" : ""}`}
-                          >
-                            {domain}
-                          </button>
-                        ))}
-                      </div>
-                      {errors.domains && <FieldError id="ru-domains-error">{errors.domains}</FieldError>}
-                    </fieldset>
+                    {/* Domains, in the order the club presents them: the
+                        technical co-domain first, then the working domain the
+                        applicant runs events with. The lists are disjoint, so
+                        neither pick constrains the other. */}
+                    <DomainPicker
+                      name="coDomain"
+                      legend="Co-Domain"
+                      note="optional technical track"
+                      options={coDomains}
+                      value={form.coDomain}
+                      error={errors.coDomain}
+                      onPick={pickCoDomain}
+                      noneLabel="None"
+                    />
+
+                    <DomainPicker
+                      name="workingDomain"
+                      legend="Working Domain"
+                      note="pick one"
+                      options={workingDomains}
+                      value={form.workingDomain}
+                      error={errors.workingDomain}
+                      required
+                      onPick={pickWorkingDomain}
+                    />
                   </div>
 
                   {attempted && Object.keys(errors).length > 0 && (
@@ -525,7 +672,10 @@ function JoinUs() {
 
       <Footer />
       <style>{`
-        #ru-branch option { background: #081436; color: #fff; }
+        select.field option { background: #081436; color: #fff; }
+        /* .uppercase is there to echo the value back the way it gets stored, but
+           it also shouts the placeholder ("E.G. 2024…"). Exempt it. */
+        .field.uppercase::placeholder { text-transform: none; }
       `}</style>
     </motion.div>
   );

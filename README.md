@@ -24,9 +24,12 @@ want submissions to reach the database.
 
 ## Supabase
 
-Run `supabase/schema.sql` once in the dashboard (SQL Editor → New query → paste
-→ Run). It creates the `applications` table, its validation constraints, and the
-Row Level Security policies.
+Run `supabase/schema.sql` in the dashboard (SQL Editor → New query → paste →
+Run). It creates the `applications` table, its validation constraints, and the
+Row Level Security policies. Re-running it is safe, and is how you apply changes
+to the form: the file also migrates a table left by an earlier revision. If it
+reports that existing rows are blocking the new constraints, fill in or delete
+those rows as the notice describes and run it again.
 
 RLS is deliberately insert-only for the `anon` role: there is no select, update,
 or delete policy, so the publishable key that ships in the client bundle cannot

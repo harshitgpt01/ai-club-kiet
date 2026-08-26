@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FiArrowRight,
-  FiAward,
   FiBookOpen,
+  FiBriefcase,
   FiCalendar,
   FiCode,
   FiCompass,
@@ -13,9 +13,12 @@ import {
   FiHeart,
   FiLayers,
   FiMail,
+  FiMic,
   FiMinus,
+  FiPenTool,
   FiPlus,
   FiSearch,
+  FiShield,
   FiTarget,
   FiTrendingUp,
   FiUsers,
@@ -85,12 +88,49 @@ const tracks = [
   ["AI Research", "Research-driven projects, competitions, and emerging technologies.", FiBookOpen],
 ];
 
-const journey = [
-  ["01", "Apply in the drive", "The recruitment drive runs in rounds — screening, technical evaluation, and interviews.", FiUsers],
-  ["02", "Learn the core", "Python & ML classes cover hands-on coding, concept building, and practical implementation.", FiBookOpen],
-  ["03", "Sprint through a bootcamp", "Intensive bootcamps like SkillSprint 3.0 take you through Gen AI and RAG systems in three days.", FiCode],
-  ["04", "Build and present", "Build it in Colab, push it to GitHub, then present it — the ML Pipeline session ended in a felicitation ceremony.", FiAward],
-  ["05", "Mentor the next batch", "Seniors join the internal mentorship program and guide first-year students.", FiTrendingUp],
+// The club runs on two tiers: the technical co-domains everyone is recruited
+// into, and the working domains that keep events, funding and outreach moving.
+// Both titles below are the same strings the recruitment form offers — see
+// `coDomains` in src/pages/JoinUs.jsx.
+const coreDomains = [
+  {
+    title: "AI & ML",
+    icon: FiCpu,
+    body:
+      "The technical core — model building, end-to-end ML pipelines, and the Python & ML classes that get every batch there.",
+    tags: ["Machine Learning", "Deep Learning", "Gen AI & RAG", "Data Science"],
+  },
+  {
+    title: "AI Security",
+    icon: FiShield,
+    body:
+      "Where the models get stress-tested — adversarial attacks, model robustness, and shipping AI systems that hold up in the real world.",
+    tags: ["Adversarial ML", "Model Robustness", "Secure Deployment", "AI Ethics"],
+  },
+];
+
+// Same four teams, in the same order, as `workingDomains` in src/pages/JoinUs.jsx.
+const workingDomains = [
+  {
+    title: "Web Development",
+    icon: FiCode,
+    body: "Builds and maintains the club site, event portals, and the demos that carry member projects.",
+  },
+  {
+    title: "Media & Graphics",
+    icon: FiPenTool,
+    body: "Posters, session decks, reels, and the visual identity behind every event the club runs.",
+  },
+  {
+    title: "Management & PR",
+    icon: FiMic,
+    body: "Runs events end to end — scheduling, volunteers, campus outreach, and the club's public voice across platforms.",
+  },
+  {
+    title: "Corporate & Finance",
+    icon: FiBriefcase,
+    body: "Sponsorships, budgets, and vendor coordination — the side that keeps events funded and on schedule.",
+  },
 ];
 
 const faqs = [
@@ -152,7 +192,7 @@ function NeuralFlow() {
             className="h-2 w-2 rounded-full bg-sky-300"
             style={{ animation: "nodeGlow 1.8s ease-in-out infinite" }}
           />
-          4 domains
+          6 domains
         </span>
       </div>
 
@@ -217,6 +257,21 @@ function NeuralFlow() {
           </g>
         ))}
       </svg>
+    </motion.div>
+  );
+}
+
+// Tier heading for the club-structure section: label, count, then a rule that
+// runs to the edge so both tiers line up on the same left and right margins.
+function TierLabel({ label, count, note }) {
+  return (
+    <motion.div variants={fadeUp} className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <span className="text-xs font-black uppercase tracking-[0.16em] text-sky-300/85">{label}</span>
+      <span className="rounded-full border border-sky-300/25 bg-sky-300/5 px-2.5 py-0.5 text-[11px] font-black tabular-nums text-sky-100">
+        {count}
+      </span>
+      <span className="h-px min-w-8 flex-1 bg-gradient-to-r from-sky-300/35 to-transparent" aria-hidden="true" />
+      <span className="text-xs font-semibold text-slate-500">{note}</span>
     </motion.div>
   );
 }
@@ -375,39 +430,71 @@ function About() {
         className="section-wrap"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.12 }}
         variants={stagger}
       >
-        <div className="section-inner grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <SectionHeader eyebrow="Your first year" align="left" title={<>From Curious<br />to Shipping</>}>
-              Nobody is expected to arrive knowing gradient descent. This is the path most members walk.
-            </SectionHeader>
-            <motion.div variants={fadeUp}>
-              <Link to="/join" className="ghost-button">
-                Start at step one <FiArrowRight aria-hidden="true" />
-              </Link>
-            </motion.div>
+        <div className="section-inner">
+          <SectionHeader eyebrow="Club structure" title="Two Cores, Four Engines">
+            Every member sits in one of two technical co-domains, and the club runs on four working
+            domains that carry everything around them.
+          </SectionHeader>
+
+          <TierLabel label="Co-Domains" count="02" note="Technical tracks" />
+          <motion.div variants={stagger} className="grid gap-5 md:grid-cols-2">
+            {coreDomains.map(({ title, body, tags, icon: Icon }) => (
+              <motion.article
+                key={title}
+                variants={fadeUp}
+                className="glass-panel glow-card flex h-full flex-col rounded-xl border-sky-300/25 bg-gradient-to-br from-sky-500/12 via-[#0a1a44]/70 to-blue-700/20 p-7"
+              >
+                <div className="relative z-10 flex items-center gap-4">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg border border-sky-300/30 bg-sky-300/10 text-2xl text-sky-300">
+                    <Icon aria-hidden="true" />
+                  </span>
+                  <h3 className="text-2xl font-black text-white">{title}</h3>
+                </div>
+                <p className="relative z-10 mt-4 text-sm leading-7 text-slate-400">{body}</p>
+                <ul className="relative z-10 mt-auto flex list-none flex-wrap gap-2 p-0 pt-6">
+                  {tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            ))}
+          </motion.div>
+
+          <div className="relative flex h-16 items-center justify-center" aria-hidden="true">
+            <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-sky-300/60 via-sky-300/30 to-blue-600/10" />
+            <span className="relative h-2.5 w-2.5 rounded-full bg-sky-300 shadow-[0_0_16px_rgba(56,189,248,0.85)]" />
           </div>
 
-          <motion.ol variants={stagger} className="relative m-0 list-none space-y-4 p-0">
-            <span
-              className="absolute bottom-6 left-[26px] top-6 w-px bg-gradient-to-b from-sky-300/60 via-blue-600/40 to-transparent"
-              aria-hidden="true"
-            />
-            {journey.map(([step, title, body, Icon]) => (
-              <motion.li key={step} variants={fadeUp} className="relative flex gap-5 pl-0">
-                <span className="relative z-10 grid h-[54px] w-[54px] shrink-0 place-items-center rounded-full border border-sky-300/35 bg-[#081436] text-xl text-sky-300 shadow-[0_0_22px_rgba(56,189,248,0.28)]">
+          <TierLabel label="Working Domains" count="04" note="Operations & outreach" />
+          <motion.div variants={stagger} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {workingDomains.map(({ title, body, icon: Icon }) => (
+              <motion.article
+                key={title}
+                variants={fadeUp}
+                className="flex h-full flex-col rounded-xl border border-white/10 bg-white/[0.035] p-5 transition hover:border-sky-300/40"
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-lg border border-sky-300/25 bg-sky-300/5 text-xl text-sky-300">
                   <Icon aria-hidden="true" />
                 </span>
-                <div className="glass-panel flex-1 rounded-xl p-5">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-sky-300/85">Step {step}</span>
-                  <h3 className="mt-2 text-xl font-black text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-400">{body}</p>
-                </div>
-              </motion.li>
+                <h3 className="mt-5 text-lg font-black leading-snug text-white">{title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-400">{body}</p>
+              </motion.article>
             ))}
-          </motion.ol>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-11 text-center">
+            <Link to="/join" className="ghost-button">
+              Pick your domain <FiArrowRight aria-hidden="true" />
+            </Link>
+          </motion.div>
         </div>
       </motion.section>
 
