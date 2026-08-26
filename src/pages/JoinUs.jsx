@@ -17,8 +17,6 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import { fadeUp, stagger } from "../lib/motion";
 import {
-  countPending,
-  downloadCsv,
   readApplications,
   submitApplication,
   syncPendingApplications,
@@ -174,22 +172,12 @@ function JoinUs() {
   const [submitted, setSubmitted] = useState(null);
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [storedCount, setStoredCount] = useState(() => readApplications().length);
-  const [pendingCount, setPendingCount] = useState(() => countPending());
 
   // Flush anything a previous visit queued while offline.
   useEffect(() => {
-    let active = true;
-    syncPendingApplications()
-      .then((pushed) => {
-        if (active && pushed > 0) setPendingCount(countPending());
-      })
-      .catch(() => {
-        /* still offline — the queue stays put for the next visit */
-      });
-    return () => {
-      active = false;
-    };
+    syncPendingApplications().catch(() => {
+      /* still offline — the queue stays put for the next visit */
+    });
   }, []);
 
   // Once the user has tried to submit, re-check on every keystroke so errors clear live.
@@ -253,9 +241,6 @@ function JoinUs() {
     } finally {
       setSending(false);
     }
-
-    setStoredCount(readApplications().length);
-    setPendingCount(countPending());
 
     if (!result.ok) {
       if (result.field) {
@@ -534,21 +519,6 @@ function JoinUs() {
                 </form>
               )}
             </div>
-
-            {/* Supabase holds the real records; this is the local backup copy. */}
-            {storedCount > 0 && (
-              <p className="mt-5 text-center text-xs text-slate-500">
-                {storedCount} application{storedCount > 1 ? "s" : ""} cached in this browser
-                {pendingCount > 0 && <span className="text-amber-300"> · {pendingCount} awaiting sync</span>} ·{" "}
-                <button
-                  type="button"
-                  onClick={downloadCsv}
-                  className="cursor-pointer border-none bg-transparent p-0 text-sky-300 underline"
-                >
-                  Export CSV
-                </button>
-              </p>
-            )}
           </motion.div>
         </div>
       </motion.section>
