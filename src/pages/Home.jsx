@@ -196,7 +196,7 @@ function Home() {
               AI Club KIET is a student-driven technical community focused on Artificial Intelligence,
               Machine Learning, Data Science, and emerging technologies.
             </motion.p>
-            <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <motion.div variants={fadeUp} className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link to="/about" className="primary-button min-w-44">
                 Explore More <FiArrowRight aria-hidden="true" />
               </Link>
@@ -422,7 +422,7 @@ function Home() {
             </SectionHeader>
             <motion.div variants={stagger} className="grid gap-4">
               {[
-                [FiMapPin, "KIET Group of Institutions, Ghaziabad"],
+                [FiMapPin, "KIET Deemed to be University, Ghaziabad"],
                 [FiMail, "aischool.ic@kiet.edu"],
                 [FiPhone, "8581060205 · Antas Kumar Dubey (President)"],
               ].map(([Icon, text]) => (

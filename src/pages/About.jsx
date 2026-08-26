@@ -343,7 +343,7 @@ function About() {
               and <span className="neon-text">application</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="mt-6 max-w-[560px] text-lg leading-8 text-white/85">
-              AI Club KIET is a student-driven technical community at KIET Group of Institutions,
+              AI Club KIET is a student-driven technical community at KIET Deemed to be University,
               Ghaziabad, focused on Artificial Intelligence, Machine Learning, Data Science, and emerging
               technologies. The club bridges the gap between theoretical learning and real-world
               application through hands-on sessions, bootcamps, and project-based learning.

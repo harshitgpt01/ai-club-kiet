@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import KietLogo from "./KietLogo";
 import logoMark from "../assets/logo-mark.png";
 
 const navigate = [
@@ -49,9 +50,10 @@ function Footer() {
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">
               A student-driven technical community focused on Artificial Intelligence, Machine
-              Learning, Data Science, and emerging technologies at KIET Group of Institutions,
+              Learning, Data Science, and emerging technologies at KIET Deemed to be University,
               Ghaziabad.
             </p>
+            <KietLogo label="A student club at" className="mt-7" />
           </div>
 
           <nav aria-label="Site">
@@ -82,7 +84,7 @@ function Footer() {
               <li className="flex gap-3 text-sm leading-6 text-slate-400">
                 <FiMapPin className="mt-0.5 shrink-0 text-sky-300" aria-hidden="true" />
                 <span>
-                  KIET Group of Institutions
+                  KIET Deemed to be University
                   <br />
                   13 Km Stone, Delhi-Meerut Expressway
                   <br />
@@ -110,7 +112,7 @@ function Footer() {
 
         <div className="mt-12 flex flex-wrap justify-between gap-3 border-t border-white/8 pt-6">
           <p className="text-xs text-slate-500">© 2026 AI Club KIET. All Rights Reserved.</p>
-          <p className="text-xs text-slate-500">Built with ❤️ by the club team</p>
+          <p className="text-xs text-slate-500">Built with ❤️ by the Web team</p>
         </div>
       </div>
     </footer>

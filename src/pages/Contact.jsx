@@ -33,7 +33,7 @@ const details = [
     title: "Address",
     body: (
       <>
-        KIET Group of Institutions
+        KIET Deemed to be University
         <br />
         13 Km Stone, Delhi-Meerut Expressway
         <br />

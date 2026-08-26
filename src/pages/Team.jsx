@@ -8,6 +8,9 @@ import TeamCard from "../components/TeamCard";
 import { fadeUp, stagger, staggerTight } from "../lib/motion";
 import { officeBearers, leads } from "../data/team";
 
+// One roster on this page: the office bearers lead the grid, then the domain leads.
+const coreMembers = [...officeBearers, ...leads];
+
 // The three rounds the club's own copy names. Deliberately just the names — the
 // source material does not describe what happens inside each round.
 const rounds = ["Screening", "Technical evaluation", "Interview"];
@@ -51,40 +54,19 @@ function Team() {
         className="section-wrap pt-20"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={stagger}
-      >
-        <div className="section-inner">
-          <SectionHeader eyebrow="Office Bearers" title="Who Runs the Club">
-            Two student office bearers hold the club's mandate for the current cycle.
-          </SectionHeader>
-          <motion.div variants={stagger} className="mx-auto grid max-w-xl gap-5 sm:grid-cols-2">
-            {officeBearers.map((member) => (
-              <motion.div key={member.name} variants={fadeUp}>
-                <TeamCard member={member} />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className="section-wrap pt-0"
-        initial="hidden"
-        whileInView="visible"
         viewport={{ once: true, amount: 0.12 }}
         variants={staggerTight}
       >
         <div className="section-inner">
-          <SectionHeader eyebrow="Domain Leads" title="The Core Team">
-            Each lead owns a domain — from machine learning and AI security to academics, media and
-            outreach.
+          <SectionHeader eyebrow="Core Members" title="Who Runs the Club">
+            Two office bearers hold the club's mandate for the current cycle, and each lead owns a
+            domain — from machine learning and AI security to academics, media and outreach.
           </SectionHeader>
           <motion.div
             variants={staggerTight}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {leads.map((member) => (
+            {coreMembers.map((member) => (
               <motion.div key={member.name} variants={fadeUp}>
                 <TeamCard member={member} />
               </motion.div>
