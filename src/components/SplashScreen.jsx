@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import logoMark from "../assets/logo-mark.png";
 
 export default function SplashScreen({ onDone }) {
   const canvasRef = useRef(null);
@@ -41,7 +42,7 @@ export default function SplashScreen({ onDone }) {
           const d = Math.sqrt(dx*dx + dy*dy);
           if (d < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(6,182,212,${(1-d/120)*0.2})`;
+            ctx.strokeStyle = `rgba(56,189,248,${(1-d/120)*0.2})`;
             ctx.lineWidth = 0.6;
             ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); ctx.stroke();
           }
@@ -83,7 +84,7 @@ export default function SplashScreen({ onDone }) {
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 9999,
-      background: "linear-gradient(135deg, #020617 0%, #0a0f2e 50%, #0d0730 100%)",
+      background: "linear-gradient(135deg, #050e24 0%, #0a1a45 50%, #071233 100%)",
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
       overflow: "hidden",
       transition: leaving ? "transform 0.85s cubic-bezier(0.76,0,0.24,1), opacity 0.85s ease" : "none",
@@ -93,23 +94,26 @@ export default function SplashScreen({ onDone }) {
       <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
 
       {/* Center radial glow */}
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(6,182,212,0.1) 0%, rgba(124,58,237,0.08) 40%, transparent 65%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(56,189,248,0.12) 0%, rgba(37,99,235,0.1) 40%, transparent 65%)", pointerEvents: "none" }} />
 
       <div style={{ position: "relative", zIndex: 2, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-        {/* Brain icon */}
-        <div style={{
-          width: 90, height: 90,
-          background: "linear-gradient(135deg, #06B6D4, #7C3AED)",
-          borderRadius: "22px", fontSize: "3rem",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: phase >= 1 ? "0 0 50px rgba(6,182,212,0.6), 0 0 100px rgba(124,58,237,0.25)" : "none",
-          transform: phase >= 1 ? "scale(1) rotate(0deg)" : "scale(0.2) rotate(-45deg)",
-          opacity: phase >= 1 ? 1 : 0,
-          transition: "all 0.7s cubic-bezier(0.34,1.56,0.64,1)",
-        }}>🧠</div>
+        {/* Logo mark */}
+        <img
+          src={logoMark}
+          alt="AI Club KIET logo"
+          style={{
+            width: 110, height: 110, objectFit: "contain",
+            filter: phase >= 1
+              ? "drop-shadow(0 0 32px rgba(56,189,248,0.6)) drop-shadow(0 0 70px rgba(37,99,235,0.35))"
+              : "none",
+            transform: phase >= 1 ? "scale(1) rotate(0deg)" : "scale(0.2) rotate(-45deg)",
+            opacity: phase >= 1 ? 1 : 0,
+            transition: "all 0.7s cubic-bezier(0.34,1.56,0.64,1)",
+          }}
+        />
 
         {/* Eyebrow */}
-        <div style={{ fontSize: "0.7rem", color: "rgba(6,182,212,0.7)", letterSpacing: "3px", textTransform: "uppercase", fontFamily: "Inter,sans-serif", fontWeight: 600, opacity: phase >= 1 ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
+        <div style={{ fontSize: "0.7rem", color: "rgba(56,189,248,0.75)", letterSpacing: "3px", textTransform: "uppercase", fontFamily: "Inter,sans-serif", fontWeight: 600, opacity: phase >= 1 ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
           &lt; CODE · LEARN · INNOVATE /&gt;
         </div>
 
@@ -117,20 +121,20 @@ export default function SplashScreen({ onDone }) {
         <div style={{ fontSize: "clamp(3rem,10vw,6rem)", fontWeight: 900, color: "#fff", letterSpacing: "-3px", fontFamily: "Inter,sans-serif", lineHeight: 1, minHeight: "1.1em" }}>
           {typedText}
           {typedText.length > 0 && typedText.length < 7 && (
-            <span style={{ display: "inline-block", width: "3px", height: "0.85em", background: "#06B6D4", marginLeft: "4px", verticalAlign: "middle", animation: "blink 0.65s step-end infinite" }} />
+            <span style={{ display: "inline-block", width: "3px", height: "0.85em", background: "#38BDF8", marginLeft: "4px", verticalAlign: "middle", animation: "blink 0.65s step-end infinite" }} />
           )}
         </div>
 
         {/* KIET gradient */}
         <div style={{
           fontSize: "clamp(3rem,10vw,6rem)", fontWeight: 900,
-          background: "linear-gradient(90deg, #06B6D4, #38BDF8, #7C3AED)",
+          background: "linear-gradient(90deg, #7DD3FC, #38BDF8, #2563EB)",
           WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
           letterSpacing: "-3px", fontFamily: "Inter,sans-serif", lineHeight: 1, marginTop: "-0.4rem",
           opacity: showKiet ? 1 : 0,
           transform: showKiet ? "scale(1) translateY(0)" : "scale(0.7) translateY(12px)",
           transition: "all 0.75s cubic-bezier(0.34,1.2,0.64,1)",
-          filter: showKiet ? "drop-shadow(0 0 30px rgba(6,182,212,0.7))" : "none",
+          filter: showKiet ? "drop-shadow(0 0 30px rgba(56,189,248,0.7))" : "none",
         }}>KIET</div>
 
         {/* Tagline */}
@@ -144,13 +148,13 @@ export default function SplashScreen({ onDone }) {
 
         {/* Progress bar */}
         <div style={{ width: "clamp(160px,28vw,280px)", height: "2px", background: "rgba(255,255,255,0.07)", borderRadius: "999px", marginTop: "1.75rem", overflow: "hidden", opacity: showTagline ? 1 : 0, transition: "opacity 0.4s ease" }}>
-          <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg,#06B6D4,#7C3AED)", borderRadius: "999px", transition: "width 0.05s linear", boxShadow: "0 0 12px rgba(6,182,212,0.8)" }} />
+          <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg,#38BDF8,#2563EB)", borderRadius: "999px", transition: "width 0.05s linear", boxShadow: "0 0 12px rgba(56,189,248,0.8)" }} />
         </div>
 
         {/* Loading dots */}
         <div style={{ display: "flex", gap: "6px", opacity: showTagline ? 0.5 : 0, transition: "opacity 0.4s ease 0.2s" }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{ width: 5, height: 5, background: "#06B6D4", borderRadius: "50%", animation: `dotBounce 1.2s ease-in-out infinite`, animationDelay: `${i*0.2}s` }} />
+            <div key={i} style={{ width: 5, height: 5, background: "#38BDF8", borderRadius: "50%", animation: `dotBounce 1.2s ease-in-out infinite`, animationDelay: `${i*0.2}s` }} />
           ))}
         </div>
       </div>

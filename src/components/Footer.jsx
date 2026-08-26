@@ -1,53 +1,116 @@
 import { Link } from "react-router-dom";
+import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import logoMark from "../assets/logo-mark.png";
+
+const navigate = [
+  ["Home", "/"],
+  ["About", "/about"],
+  ["Events", "/events"],
+  ["Projects", "/projects"],
+  ["Gallery", "/gallery"],
+  ["Team", "/team"],
+  ["Contact", "/contact"],
+];
+
+const programs = [
+  ["Internal Mentorship Program", "/events"],
+  ["Python & ML Classes", "/events"],
+  ["SkillSprint Bootcamps", "/events"],
+  ["ML Pipeline Session", "/events"],
+  ["Student Projects", "/projects"],
+];
+
+const columnHead = "text-xs font-extrabold uppercase tracking-[0.16em] text-sky-300/85";
+const columnLink =
+  "block text-sm text-slate-400 no-underline transition-colors hover:text-sky-200";
 
 function Footer() {
   return (
-    <footer style={{ background: "#070710", borderTop: "1px solid rgba(99,102,241,0.12)", padding: "3.5rem 1.5rem 1.5rem" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px,1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
+    <footer className="relative border-t border-sky-300/12 bg-[#030a1a] pb-6 pt-14 gutter">
+      {/* Faint brand wash so the footer reads as part of the page, not a slab. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(37,99,235,0.16),transparent_70%)]"
+        aria-hidden="true"
+      />
+
+      <div className="container-page relative">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>
-            <h3 style={{ fontWeight: 800, color: "#fff", fontSize: "1.2rem", fontFamily: "'Inter',sans-serif", marginBottom: "1rem" }}>
-              AI Club <span style={{ color: "#6366F1" }}>KIET</span>
-            </h3>
-            <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.87rem", lineHeight: 1.75, fontFamily: "'Inter',sans-serif" }}>
-              Empowering students with AI, ML, and innovation at KIET Group of Institutions, Ghaziabad.
+            <Link to="/" className="flex items-center gap-3 text-white no-underline">
+              <img
+                src={logoMark}
+                alt=""
+                className="h-11 w-11 shrink-0 object-contain drop-shadow-[0_0_18px_rgba(56,189,248,0.45)]"
+                aria-hidden="true"
+              />
+              <span className="text-lg font-black uppercase leading-5 tracking-[0.02em]">
+                AI Club <span className="text-sky-300">KIET</span>
+              </span>
+            </Link>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">
+              A student-driven technical community focused on Artificial Intelligence, Machine
+              Learning, Data Science, and emerging technologies at KIET Group of Institutions,
+              Ghaziabad.
             </p>
           </div>
 
-          <div>
-            <h4 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.78rem", letterSpacing: "1.8px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif", marginBottom: "1.25rem" }}>Navigate</h4>
-            {[["Home","/"],["About","/about"],["Team","/team"],["Events","/events"],["Gallery","/gallery"],["Contact","/contact"]].map(([l,t]) => (
-              <Link key={l} to={t}
-                onMouseEnter={e => e.currentTarget.style.color = "#6366F1"}
-                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.35)"}
-                style={{ display: "block", color: "rgba(255,255,255,0.35)", textDecoration: "none", fontFamily: "'Inter',sans-serif", fontSize: "0.9rem", marginBottom: "0.6rem", transition: "color 0.2s" }}>{l}</Link>
-            ))}
-          </div>
+          <nav aria-label="Site">
+            <h2 className={columnHead}>Navigate</h2>
+            <div className="mt-5 space-y-2.5">
+              {navigate.map(([label, to]) => (
+                <Link key={label} to={to} className={columnLink}>
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </nav>
+
+          <nav aria-label="Programs">
+            <h2 className={columnHead}>Programs</h2>
+            <div className="mt-5 space-y-2.5">
+              {programs.map(([label, to]) => (
+                <Link key={label} to={to} className={columnLink}>
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </nav>
 
           <div>
-            <h4 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.78rem", letterSpacing: "1.8px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif", marginBottom: "1.25rem" }}>Social</h4>
-            {[["GitHub","#"],["LinkedIn","#"],["Instagram","#"],["Discord","#"],["YouTube","#"]].map(([label,href]) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer"
-                onMouseEnter={e => e.currentTarget.style.color = "#06B6D4"}
-                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.35)"}
-                style={{ display: "block", color: "rgba(255,255,255,0.35)", textDecoration: "none", fontFamily: "'Inter',sans-serif", fontSize: "0.9rem", marginBottom: "0.6rem", transition: "color 0.2s" }}>{label}</a>
-            ))}
-          </div>
-
-          <div>
-            <h4 style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.78rem", letterSpacing: "1.8px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif", marginBottom: "1.25rem" }}>Contact</h4>
-            <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.87rem", lineHeight: 1.8, fontFamily: "'Inter',sans-serif" }}>
-              KIET Group of Institutions<br />
-              13 Km Stone, Delhi-Meerut<br />
-              Expressway, Ghaziabad, UP<br />
-              <a href="mailto:aiclub@kiet.edu" style={{ color: "#6366F1", textDecoration: "none" }}>aiclub@kiet.edu</a>
-            </p>
+            <h2 className={columnHead}>Contact</h2>
+            <ul className="mt-5 space-y-3.5 list-none p-0">
+              <li className="flex gap-3 text-sm leading-6 text-slate-400">
+                <FiMapPin className="mt-0.5 shrink-0 text-sky-300" aria-hidden="true" />
+                <span>
+                  KIET Group of Institutions
+                  <br />
+                  13 Km Stone, Delhi-Meerut Expressway
+                  <br />
+                  Ghaziabad, Uttar Pradesh — 201206
+                </span>
+              </li>
+              <li className="flex items-center gap-3 text-sm text-slate-400">
+                <FiMail className="shrink-0 text-sky-300" aria-hidden="true" />
+                <a
+                  href="mailto:aischool.ic@kiet.edu"
+                  className="no-underline transition-colors hover:text-sky-200"
+                >
+                  aischool.ic@kiet.edu
+                </a>
+              </li>
+              <li className="flex items-center gap-3 text-sm text-slate-400">
+                <FiPhone className="shrink-0 text-sky-300" aria-hidden="true" />
+                <a href="tel:+918581060205" className="no-underline transition-colors hover:text-sky-200">
+                  8581060205
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "1.5rem", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
-          <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.82rem", fontFamily: "'Inter',sans-serif" }}>© 2026 AI Club KIET. All Rights Reserved.</p>
-          <p style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.82rem", fontFamily: "'Inter',sans-serif" }}>Built with ❤️ by the club team</p>
+        <div className="mt-12 flex flex-wrap justify-between gap-3 border-t border-white/8 pt-6">
+          <p className="text-xs text-slate-500">© 2026 AI Club KIET. All Rights Reserved.</p>
+          <p className="text-xs text-slate-500">Built with ❤️ by the club team</p>
         </div>
       </div>
     </footer>

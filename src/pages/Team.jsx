@@ -1,81 +1,159 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FiArrowRight, FiMail } from "react-icons/fi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SectionHeader from "../components/SectionHeader";
 import TeamCard from "../components/TeamCard";
+import { fadeUp, stagger, staggerTight } from "../lib/motion";
+import { officeBearers, leads } from "../data/team";
 
-const leads = [
-  { name: "Aryan Sharma", role: "President", dept: "CSE — Final Year", avatar: "🧠", github: "#", linkedin: "#" },
-  { name: "Priya Gupta", role: "Vice President", dept: "CSE — Third Year", avatar: "⚡", github: "#", linkedin: "#" },
-  { name: "Rohit Verma", role: "Technical Lead", dept: "CSE (AI/ML) — Third Year", avatar: "🔬", github: "#", linkedin: "#" },
-  { name: "Sneha Patel", role: "Event Coordinator", dept: "IT — Third Year", avatar: "🎯", github: "#", linkedin: "#" },
-];
-
-const coreteam = [
-  { name: "Ankit Mishra", role: "ML Domain Lead", dept: "CSE — Second Year", avatar: "🤖", github: "#", linkedin: "#" },
-  { name: "Divya Singh", role: "Web Dev Lead", dept: "CSE — Second Year", avatar: "🌐", github: "#", linkedin: "#" },
-  { name: "Karan Joshi", role: "Data Science Lead", dept: "CSE (DS) — Second Year", avatar: "📊", github: "#", linkedin: "#" },
-  { name: "Meera Reddy", role: "Research Lead", dept: "CSE — Third Year", avatar: "📝", github: "#", linkedin: "#" },
-  { name: "Vikram Nair", role: "Design Lead", dept: "CSE — Second Year", avatar: "🎨", github: "#", linkedin: "#" },
-  { name: "Aisha Khan", role: "Community Manager", dept: "IT — Second Year", avatar: "💬", github: "#", linkedin: "#" },
-];
+// The three rounds the club's own copy names. Deliberately just the names — the
+// source material does not describe what happens inside each round.
+const rounds = ["Screening", "Technical evaluation", "Interview"];
 
 function Team() {
   return (
-    <div style={{ background: "#0A0A0F", minHeight: "100vh" }}>
+    <motion.div
+      className="site-shell relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
       <Navbar />
 
-      {/* Hero */}
-      <section style={{ padding: "10rem 1.5rem 5rem", textAlign: "center", background: "linear-gradient(180deg, #0A0A0F 0%, #0D0D1A 100%)" }}>
-        <span style={{ fontSize: "0.78rem", color: "#6366F1", letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>The People</span>
-        <h1 style={{ fontSize: "clamp(2.5rem,6vw,4rem)", fontWeight: 900, color: "#fff", marginTop: "0.75rem", letterSpacing: "-2px", fontFamily: "'Inter',sans-serif", lineHeight: 1.1 }}>
-          Meet the <span style={{ background: "linear-gradient(90deg,#6366F1,#06B6D4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Team</span>
-        </h1>
-        <p style={{ color: "rgba(255,255,255,0.42)", fontSize: "1rem", maxWidth: "480px", margin: "1rem auto 0", fontFamily: "'Inter',sans-serif", lineHeight: 1.7 }}>
-          Built by students, for students. Every person here volunteered because they believe learning AI should be hands-on and collaborative.
-        </p>
+      <section className="cyber-hero page-hero relative overflow-hidden pb-16 gutter">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(37,99,235,0.22),transparent_30rem),radial-gradient(circle_at_18%_40%,rgba(56,189,248,0.1),transparent_24rem)]" />
+
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={stagger}
+          className="container-page relative z-10 text-center"
+        >
+          <motion.span variants={fadeUp} className="eyebrow">
+            The People
+          </motion.span>
+          <motion.h1
+            variants={fadeUp}
+            className="cyber-title mx-auto mt-6 max-w-3xl text-4xl font-black uppercase leading-[1.16] text-white sm:text-5xl xl:text-[3.6rem]"
+          >
+            Meet the <span className="neon-text">Team</span>
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[560px] text-lg leading-8 text-white/85">
+            A student-driven technical community, guided by faculty and led by students of KIET
+            Ghaziabad.
+          </motion.p>
+        </motion.div>
       </section>
 
-      {/* Leadership */}
-      <section style={{ padding: "4rem 1.5rem", background: "#0A0A0F" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <h2 style={{ fontSize: "1.2rem", fontWeight: 700, color: "rgba(255,255,255,0.5)", fontFamily: "'Inter',sans-serif", marginBottom: "1.75rem", letterSpacing: "0.5px" }}>
-            — Leadership
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "1.25rem" }}>
-            {leads.map(m => <TeamCard key={m.name} member={m} />)}
-          </div>
+      <motion.section
+        className="section-wrap pt-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+      >
+        <div className="section-inner">
+          <SectionHeader eyebrow="Office Bearers" title="Who Runs the Club">
+            Two student office bearers hold the club's mandate for the current cycle.
+          </SectionHeader>
+          <motion.div variants={stagger} className="mx-auto grid max-w-xl gap-5 sm:grid-cols-2">
+            {officeBearers.map((member) => (
+              <motion.div key={member.name} variants={fadeUp}>
+                <TeamCard member={member} />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Core Team */}
-      <section style={{ padding: "2rem 1.5rem 6rem", background: "#0A0A0F" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <h2 style={{ fontSize: "1.2rem", fontWeight: 700, color: "rgba(255,255,255,0.5)", fontFamily: "'Inter',sans-serif", marginBottom: "1.75rem", letterSpacing: "0.5px" }}>
-            — Core Team
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "1.25rem" }}>
-            {coreteam.map(m => <TeamCard key={m.name} member={m} />)}
-          </div>
+      <motion.section
+        className="section-wrap pt-0"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        variants={staggerTight}
+      >
+        <div className="section-inner">
+          <SectionHeader eyebrow="Domain Leads" title="The Core Team">
+            Each lead owns a domain — from machine learning and AI security to academics, media and
+            outreach.
+          </SectionHeader>
+          <motion.div
+            variants={staggerTight}
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {leads.map((member) => (
+              <motion.div key={member.name} variants={fadeUp}>
+                <TeamCard member={member} />
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.p variants={fadeUp} className="mx-auto mt-10 max-w-xl text-center text-sm leading-7 text-slate-400">
+            The core team is onboarded through the club's multi-round recruitment drive, which drew 500+
+            applicants in its last cycle.
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Join the team CTA */}
-      <section style={{ padding: "5rem 1.5rem", background: "#0D0D1A", textAlign: "center" }}>
-        <h2 style={{ fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 900, color: "#fff", fontFamily: "'Inter',sans-serif", letterSpacing: "-1px", marginBottom: "1rem" }}>
-          Want to be part of this?
-        </h2>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "1rem", fontFamily: "'Inter',sans-serif", marginBottom: "2rem" }}>We're always looking for passionate people to join the core team.</p>
-        <a href="/join" style={{ textDecoration: "none" }}>
-          <button
-            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 0 40px rgba(99,102,241,0.6)"; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 0 25px rgba(99,102,241,0.35)"; }}
-            style={{ background: "linear-gradient(135deg,#6366F1,#06B6D4)", border: "none", color: "#fff", padding: "14px 38px", borderRadius: "10px", fontWeight: 700, fontSize: "1rem", cursor: "pointer", boxShadow: "0 0 25px rgba(99,102,241,0.35)", fontFamily: "'Inter',sans-serif", transition: "all 0.2s" }}>
-            Apply Now
-          </button>
-        </a>
-      </section>
+      <motion.section
+        className="section-wrap pt-0"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+      >
+        <div className="section-inner">
+          <SectionHeader eyebrow="Recruitment" title="How You Get In">
+            The drive runs in multiple rounds once a cycle. Its last cycle drew 500+ applicants at KIC.
+          </SectionHeader>
+          <motion.ol variants={stagger} className="mx-auto grid max-w-3xl list-none gap-4 p-0 m-0 sm:grid-cols-3">
+            {rounds.map((round, index) => (
+              <motion.li
+                key={round}
+                variants={fadeUp}
+                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.035] p-5 transition hover:border-sky-300/40"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-sky-300/35 bg-sky-300/5 text-sm font-black text-sky-200">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="text-sm font-bold leading-6 text-slate-200">{round}</p>
+              </motion.li>
+            ))}
+          </motion.ol>
+        </div>
+      </motion.section>
+
+      <motion.section
+        className="section-wrap pb-24 pt-0"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger}
+      >
+        <motion.div
+          variants={fadeUp}
+          className="section-inner relative overflow-hidden rounded-xl border border-sky-300/25 bg-gradient-to-br from-sky-500/12 via-transparent to-blue-700/25 p-8 text-center sm:p-12"
+        >
+          <div className="grid-overlay" aria-hidden="true" />
+          <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Want to be part of this?</h2>
+          <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
+            Recruitment runs in multiple rounds — screening, technical evaluation, and interviews.
+          </p>
+          <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link to="/join" className="primary-button min-w-48">
+              Apply Now <FiArrowRight aria-hidden="true" />
+            </Link>
+            <Link to="/contact" className="ghost-button min-w-48">
+              <FiMail aria-hidden="true" /> Ask a Question
+            </Link>
+          </div>
+        </motion.div>
+      </motion.section>
 
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,129 +1,259 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FiArrowRight, FiCalendar, FiX } from "react-icons/fi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SectionHeader from "../components/SectionHeader";
+import { fadeUp, staggerTight } from "../lib/motion";
+import { photos } from "../data/gallery";
 
-const photos = [
-  { id: 1, title: "Neural Nexus Hackathon 2025", tag: "Hackathon", emoji: "💻", span: "wide" },
-  { id: 2, title: "Deep Learning Workshop", tag: "Workshop", emoji: "🧠", span: "normal" },
-  { id: 3, title: "Team Photoshoot 2025", tag: "Team", emoji: "📸", span: "normal" },
-  { id: 4, title: "Google AI Talk Session", tag: "Talk", emoji: "🎤", span: "normal" },
-  { id: 5, title: "Kaggle Sprint Finals", tag: "Competition", emoji: "🏆", span: "wide" },
-  { id: 6, title: "Campus Orientation Stall", tag: "Outreach", emoji: "🎯", span: "normal" },
-  { id: 7, title: "CV Workshop Highlights", tag: "Workshop", emoji: "👁️", span: "normal" },
-  { id: 8, title: "Industry Visit 2025", tag: "Career", emoji: "🏢", span: "normal" },
-  { id: 9, title: "Annual Club Meet 2025", tag: "Team", emoji: "🎉", span: "wide" },
-];
-
-const gradients = [
-  "linear-gradient(135deg, #1a1040 0%, #2d1b6b 100%)",
-  "linear-gradient(135deg, #0a2040 0%, #0d4b6b 100%)",
-  "linear-gradient(135deg, #1a0a2e 0%, #3b1a6b 100%)",
-  "linear-gradient(135deg, #0d2b1a 0%, #0d5a2b 100%)",
-  "linear-gradient(135deg, #2b1a0a 0%, #5a3000 100%)",
-  "linear-gradient(135deg, #1a0a0a 0%, #4b1a1a 100%)",
-  "linear-gradient(135deg, #0a1a2b 0%, #1a3a5a 100%)",
-  "linear-gradient(135deg, #1a1a0a 0%, #3a3a0a 100%)",
-  "linear-gradient(135deg, #1a0a1a 0%, #4b0a5a 100%)",
-];
-
+// Categorical, not decorative: each tag keeps its own hue so the archive stays
+// scannable by event type. Tuned to read against the navy ground.
 const tagColors = {
-  Hackathon: "#6366F1", Workshop: "#06B6D4", Team: "#34D399",
-  Talk: "#F59E0B", Competition: "#EC4899", Outreach: "#a78bfa",
-  Career: "#06B6D4",
+  Session: "#38bdf8",
+  Bootcamp: "#22d3ee",
+  Program: "#34d399",
+  Recruitment: "#fbbf24",
+  Showcase: "#f472b6",
+  Classes: "#a78bfa",
+  Workshop: "#60a5fa",
+  Felicitation: "#fb7185",
 };
+
+// The grid uses an 8px row unit with a 16px gap, so a card of N rows is
+// N * 8 + (N - 1) * 16 px tall. These spans reproduce the previous 200 / 280 /
+// 340px heights. CSS `columns` used to do this, but multi-column fills
+// top-to-bottom per column, which scrambled the chronological reading order and
+// left the column feet ragged.
+const rowSpan = { normal: 9, wide: 12, tall: 15 };
 
 function Gallery() {
   const [filter, setFilter] = useState("All");
   const [lightbox, setLightbox] = useState(null);
-  const tags = ["All", ...Array.from(new Set(photos.map(p => p.tag)))];
+  const tags = ["All", ...Array.from(new Set(photos.map((photo) => photo.tag)))];
 
-  const filtered = filter === "All" ? photos : photos.filter(p => p.tag === filter);
+  const filtered = filter === "All" ? photos : photos.filter((photo) => photo.tag === filter);
+  const close = useCallback(() => setLightbox(null), []);
+
+  // Escape closes the lightbox, and the page behind it stops scrolling while it
+  // is open.
+  useEffect(() => {
+    if (!lightbox) return undefined;
+    const onKey = (event) => {
+      if (event.key === "Escape") close();
+    };
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox, close]);
 
   return (
-    <div style={{ background: "#0A0A0F", minHeight: "100vh" }}>
+    <motion.div
+      className="site-shell relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
       <Navbar />
 
-      {/* Hero */}
-      <section style={{ padding: "10rem 1.5rem 5rem", textAlign: "center", background: "linear-gradient(180deg,#0A0A0F 0%,#0D0D1A 100%)" }}>
-        <span style={{ fontSize: "0.78rem", color: "#6366F1", letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>Memories</span>
-        <h1 style={{ fontSize: "clamp(2.5rem,6vw,4rem)", fontWeight: 900, color: "#fff", marginTop: "0.75rem", letterSpacing: "-2px", fontFamily: "'Inter',sans-serif", lineHeight: 1.1 }}>
-          Our{" "}
-          <span style={{ background: "linear-gradient(90deg,#6366F1,#06B6D4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gallery</span>
-        </h1>
-        <p style={{ color: "rgba(255,255,255,0.42)", fontSize: "1rem", maxWidth: "420px", margin: "1rem auto 0", fontFamily: "'Inter',sans-serif", lineHeight: 1.7 }}>
-          Workshops, hackathons, talks, and the moments in between. This is us.
-        </p>
+      <section className="cyber-hero page-hero relative overflow-hidden pb-16 gutter">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,rgba(37,99,235,0.22),transparent_30rem),radial-gradient(circle_at_18%_40%,rgba(56,189,248,0.1),transparent_24rem)]" />
+
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerTight}
+          className="container-page relative z-10 text-center"
+        >
+          <motion.span variants={fadeUp} className="eyebrow">
+            Memories
+          </motion.span>
+          <motion.h1
+            variants={fadeUp}
+            className="cyber-title mx-auto mt-6 max-w-3xl text-4xl font-black uppercase leading-[1.16] text-white sm:text-5xl xl:text-[3.6rem]"
+          >
+            Our <span className="neon-text">Gallery</span>
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[560px] text-lg leading-8 text-white/85">
+            Sessions, bootcamps, drives, and showcases — and the moments in between. This is us.
+          </motion.p>
+        </motion.div>
       </section>
 
-      <section style={{ padding: "0 1.5rem 6rem", background: "#0A0A0F" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          {/* Filter */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", marginBottom: "2.5rem" }}>
-            {tags.map(t => (
-              <button key={t} onClick={() => setFilter(t)}
-                style={{
-                  background: filter === t ? "linear-gradient(135deg,#6366F1,#06B6D4)" : "rgba(255,255,255,0.04)",
-                  border: filter === t ? "none" : "1px solid rgba(255,255,255,0.1)",
-                  color: filter === t ? "#fff" : "rgba(255,255,255,0.5)",
-                  padding: "8px 18px", borderRadius: "999px", fontWeight: 600,
-                  fontSize: "0.85rem", cursor: "pointer", fontFamily: "'Inter',sans-serif",
-                  transition: "all 0.2s",
-                  boxShadow: filter === t ? "0 0 16px rgba(99,102,241,0.4)" : "none",
-                }}>
-                {t}
+      <motion.section
+        className="section-wrap pb-24 pt-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.04 }}
+        variants={staggerTight}
+      >
+        <div className="section-inner">
+          <SectionHeader eyebrow="Archive" title="Club Moments">
+            {photos.length} shots from the year. Pick a tag to narrow it down, or open any card full size.
+          </SectionHeader>
+
+          <motion.div variants={fadeUp} className="mb-8 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setFilter(tag)}
+                aria-pressed={filter === tag}
+                className="filter-pill"
+              >
+                {tag}{" "}
+                <span className="filter-pill-count">
+                  {tag === "All" ? photos.length : photos.filter((photo) => photo.tag === tag).length}
+                </span>
               </button>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Masonry-style grid */}
-          <div style={{ columns: "3 280px", gap: "1rem" }}>
-            {filtered.map((p, i) => {
-              const accent = tagColors[p.tag] || "#6366F1";
+          <motion.div
+            variants={staggerTight}
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            style={{ gridAutoRows: "8px" }}
+          >
+            {filtered.map((photo) => {
+              const accent = tagColors[photo.tag] || tagColors.Session;
               return (
-                <div key={p.id}
-                  onClick={() => setLightbox(p)}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.boxShadow = `0 8px 32px ${accent}44`; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "none"; }}
-                  style={{
-                    background: gradients[i % gradients.length],
-                    borderRadius: "12px", marginBottom: "1rem",
-                    height: p.span === "wide" ? "240px" : "180px",
-                    display: "flex", flexDirection: "column",
-                    justifyContent: "space-between", padding: "1.25rem",
-                    cursor: "pointer", transition: "all 0.3s",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    breakInside: "avoid",
-                    position: "relative", overflow: "hidden",
-                  }}>
-                  <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", fontSize: "4rem", opacity: 0.15, userSelect: "none" }}>{p.emoji}</div>
-                  <span style={{ fontSize: "0.72rem", color: accent, background: accent + "22", border: `1px solid ${accent}44`, borderRadius: "999px", padding: "3px 10px", fontWeight: 600, fontFamily: "'Inter',sans-serif", alignSelf: "flex-start" }}>{p.tag}</span>
-                  <div>
-                    <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>{p.emoji}</div>
-                    <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.9rem", fontFamily: "'Inter',sans-serif" }}>{p.title}</p>
-                  </div>
-                </div>
+                <motion.button
+                  key={photo.id}
+                  type="button"
+                  variants={fadeUp}
+                  onClick={() => setLightbox(photo)}
+                  aria-label={`Open ${photo.title}`}
+                  className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-[#081436] p-5 text-left transition duration-300 hover:-translate-y-1"
+                  style={{ gridRow: `span ${rowSpan[photo.span] || rowSpan.normal}` }}
+                >
+                  {photo.src ? (
+                    <>
+                      <img
+                        src={photo.src}
+                        alt={photo.alt || photo.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
+                      />
+                      {/* Scrim so the tag pill and title stay readable over the photo */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(3,10,26,0.55)] via-[rgba(3,10,26,0.1)] to-[rgba(3,10,26,0.9)]" />
+                    </>
+                  ) : (
+                    <div
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-6xl opacity-15"
+                      aria-hidden="true"
+                    >
+                      {photo.emoji}
+                    </div>
+                  )}
+
+                  <span
+                    className="relative w-fit rounded-full border px-2.5 py-1 text-xs font-bold backdrop-blur-sm"
+                    style={{
+                      color: accent,
+                      borderColor: `${accent}66`,
+                      background: photo.src ? "rgba(3,10,26,0.55)" : `${accent}1f`,
+                    }}
+                  >
+                    {photo.tag}
+                  </span>
+
+                  <p className="relative mt-3 text-sm font-bold leading-snug text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)]">
+                    {photo.title}
+                  </p>
+                </motion.button>
               );
             })}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Lightbox */}
       {lightbox && (
-        <div onClick={() => setLightbox(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", backdropFilter: "blur(8px)" }}>
-          <div onClick={e => e.stopPropagation()}
-            style={{ background: "#0D0D1A", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "20px", padding: "3rem", maxWidth: "500px", width: "100%", textAlign: "center", position: "relative" }}>
-            <button onClick={() => setLightbox(null)} style={{ position: "absolute", top: "1rem", right: "1.25rem", background: "none", border: "none", color: "rgba(255,255,255,0.4)", fontSize: "1.4rem", cursor: "pointer" }}>✕</button>
-            <div style={{ fontSize: "5rem", marginBottom: "1.5rem" }}>{lightbox.emoji}</div>
-            <span style={{ fontSize: "0.72rem", color: tagColors[lightbox.tag] || "#6366F1", letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>{lightbox.tag}</span>
-            <h2 style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem", fontFamily: "'Inter',sans-serif", marginTop: "0.5rem" }}>{lightbox.title}</h2>
-            <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.85rem", fontFamily: "'Inter',sans-serif", marginTop: "0.5rem" }}>AI Club KIET — Event Archive</p>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.title}
+          onClick={close}
+          className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/85 p-6 backdrop-blur-lg"
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            className={`glass-panel relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-xl ${
+              lightbox.src ? "max-w-[860px]" : "max-w-lg p-10"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close"
+              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-[#030a1a]/70 text-slate-200 backdrop-blur-sm transition hover:text-white"
+            >
+              <FiX />
+            </button>
+
+            {lightbox.src ? (
+              <img
+                src={lightbox.src}
+                alt={lightbox.alt || lightbox.title}
+                className="block max-h-[68vh] w-full bg-[#030a1a] object-contain"
+              />
+            ) : (
+              <div className="text-center text-7xl" aria-hidden="true">
+                {lightbox.emoji}
+              </div>
+            )}
+
+            <div className={lightbox.src ? "p-6 text-center" : "mt-6 text-center"}>
+              <span
+                className="text-xs font-black uppercase tracking-[0.16em]"
+                style={{ color: tagColors[lightbox.tag] || tagColors.Session }}
+              >
+                {lightbox.tag}
+              </span>
+              <h2 className="mt-2 text-xl font-black text-white">{lightbox.title}</h2>
+              <p className="mt-2 flex items-center justify-center gap-2 text-sm text-slate-400">
+                <FiCalendar aria-hidden="true" /> AI Club KIET — Event Archive
+              </p>
+            </div>
           </div>
         </div>
       )}
 
+      <motion.section
+        className="section-wrap pb-24 pt-0"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={staggerTight}
+      >
+        <motion.div
+          variants={fadeUp}
+          className="section-inner relative overflow-hidden rounded-xl border border-sky-300/25 bg-gradient-to-br from-sky-500/12 via-transparent to-blue-700/25 p-8 text-center sm:p-12"
+        >
+          <div className="grid-overlay" aria-hidden="true" />
+          <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Be in the next batch of photos</h2>
+          <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
+            Every shot here started with someone applying. Applications stay open through the semester.
+          </p>
+          <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link to="/join" className="primary-button min-w-48">
+              Join the Club <FiArrowRight aria-hidden="true" />
+            </Link>
+            <Link to="/events" className="ghost-button min-w-48">
+              <FiCalendar aria-hidden="true" /> Browse Events
+            </Link>
+          </div>
+        </motion.div>
+      </motion.section>
+
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 
