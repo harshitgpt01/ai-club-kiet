@@ -65,7 +65,7 @@ create table if not exists public.applications (
     check (name ~ '^[A-Za-z][A-Za-z\s.''-]*$' and char_length(name) between 3 and 49),
   -- Keep this list in sync with `genders` in src/pages/JoinUs.jsx.
   constraint applications_gender_valid
-    check (gender in ('Male', 'Female', 'Other', 'Prefer not to say')),
+    check (gender in ('Male', 'Female')),
   -- Uppercased by the client. Deliberately loose about shape: KIET has issued
   -- more than one roll-number format, and rejecting a real one costs a real
   -- applicant their submission.
@@ -180,7 +180,7 @@ begin
 
     alter table public.applications drop constraint if exists applications_gender_valid;
     alter table public.applications add  constraint applications_gender_valid
-      check (gender in ('Male', 'Female', 'Other', 'Prefer not to say'));
+      check (gender in ('Male', 'Female'));
 
     alter table public.applications drop constraint if exists applications_registration_number_valid;
     alter table public.applications add  constraint applications_registration_number_valid
@@ -202,7 +202,7 @@ begin
     -- still fails loudly instead of being swallowed as a notice.
     when not_null_violation or check_violation or unique_violation then
       raise notice
-        'public.applications: existing rows are blocking the new constraints (%). Every row needs a gender (Male / Female / Other / Prefer not to say), a registration_number (6-20 characters, A-Z and 0-9 only), an accommodation (either Hosteller or the single value "Day Scholar / PG"), a working_domain (Web Development / Media & Graphics / Management & PR / Corporate & Finance) and either a null co_domain or one of AI & ML / AI Security. Domain picks made under the old combined list have no automatic equivalent, so remap or delete those rows by hand — the original array is kept in legacy_domains — then run this file again. Until then the new columns are unconstrained, so keep the window short.',
+        'public.applications: existing rows are blocking the new constraints (%). Every row needs a gender (either Male or Female), a registration_number (6-20 characters, A-Z and 0-9 only), an accommodation (either Hosteller or the single value "Day Scholar / PG"), a working_domain (Web Development / Media & Graphics / Management & PR / Corporate & Finance) and either a null co_domain or one of AI & ML / AI Security. Gender used to also allow Other and "Prefer not to say", and domain picks made under the old combined list have no automatic equivalent, so remap or delete those rows by hand — the original domain array is kept in legacy_domains — then run this file again. Until then the new columns are unconstrained, so keep the window short.',
         sqlerrm;
   end;
 end $$;

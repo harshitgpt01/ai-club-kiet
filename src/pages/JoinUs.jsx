@@ -25,22 +25,23 @@ import {
 
 const branches = [
   "CSE",
-  "CSE (AI & ML)",
-  "CSE (AI)",
   "CS",
-  "CS & IT",
   "IT",
+  "CSIT",
+  "CSE(AI)",
+  "CSE(AIML)",
+  "CSE(DS)",
+  "CSE(Cyber Security)",
   "ECE",
-  "EN (Electronics)",
-  "EE",
+  "EEE",
+  "ELCE",
+  "ECE(VLSI)",
   "ME",
-  "CE",
-  "B.Pharm",
-  "MCA",
-  "MBA",
+  "AMIA",
 ];
 
-const genders = ["Male", "Female", "Other", "Prefer not to say"];
+// Keep in sync with `applications_gender_valid` in supabase/schema.sql.
+const genders = ["Male", "Female"];
 
 // Hosteller = lives on campus; Day Scholar / PG = commutes in, either from home
 // or from a rented room off campus.
