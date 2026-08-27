@@ -20,12 +20,7 @@ import satwikSrivastava from "../assets/team/satwik-srivastava.webp";
 import shaswatMishra from "../assets/team/shaswat-mishra.webp";
 
 export const officeBearers = [
-  {
-    name: "Antas Kumar Dubey",
-    role: "President",
-    photo: antasDubey,
-    linkedin: "https://www.linkedin.com/in/antas01",
-  },
+  { name: "Antas Kumar Dubey", role: "President", photo: antasDubey },
   { name: "Archit Dubey", role: "Vice President", photo: architDubey },
 ];
 
