@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -15,7 +14,9 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
+import FieldError, { FormError } from "../components/FieldError";
 import { fadeUp, stagger } from "../lib/motion";
+import { useContactForm } from "../lib/useContactForm";
 
 const socials = [
   { label: "Introduction to AI — Instagram", icon: FiInstagram, href: "https://www.instagram.com/p/DO2sIagElzd/" },
@@ -71,13 +72,7 @@ const fields = [
 ];
 
 function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSent(true);
-  };
+  const contact = useContactForm("contact-page");
 
   return (
     <motion.div
@@ -165,45 +160,69 @@ function Contact() {
           </div>
 
           <motion.div variants={fadeUp} className="glass-panel rounded-xl p-6 sm:p-8">
-            {sent ? (
+            {contact.sent ? (
               <div className="py-10 text-center">
                 <FiCheckCircle className="mx-auto text-5xl text-emerald-300" aria-hidden="true" />
                 <h3 className="mt-5 text-xl font-black text-white">Message Sent!</h3>
-                <p className="mt-2 text-sm text-slate-400">We'll get back to you within 24 hours.</p>
-                <button type="button" onClick={() => setSent(false)} className="ghost-button mt-6">
+                <p className="mt-2 text-sm text-slate-400">
+                  It's in the club inbox — we'll reply to the address you gave us.
+                </p>
+                <button type="button" onClick={contact.reset} className="ghost-button mt-6">
                   Send another
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={contact.handleSubmit} noValidate>
                 <h2 className="text-xl font-black text-white">Send a Message</h2>
                 <p className="mt-1 text-sm text-slate-400">We read everything that lands here.</p>
 
                 <div className="mt-6 grid gap-4">
                   {fields.map(({ key, placeholder, label, type, autoComplete }) => (
-                    <input
-                      key={key}
-                      type={type}
-                      className="field"
-                      placeholder={placeholder}
-                      aria-label={label}
-                      autoComplete={autoComplete}
-                      value={form[key]}
-                      onChange={(event) => setForm({ ...form, [key]: event.target.value })}
-                    />
+                    <div key={key}>
+                      <input
+                        type={type}
+                        className="field"
+                        placeholder={placeholder}
+                        aria-label={label}
+                        autoComplete={autoComplete}
+                        {...contact.fieldProps(key)}
+                      />
+                      {contact.errors[key] && (
+                        <FieldError id={`${contact.fieldId(key)}-error`}>{contact.errors[key]}</FieldError>
+                      )}
+                    </div>
                   ))}
-                  <textarea
-                    rows={5}
-                    className="field min-h-36 resize-y"
-                    placeholder="Your Message"
-                    aria-label="Your message"
-                    value={form.message}
-                    onChange={(event) => setForm({ ...form, message: event.target.value })}
-                  />
+                  <div>
+                    <textarea
+                      rows={5}
+                      className="field min-h-36 resize-y"
+                      placeholder="Your Message"
+                      aria-label="Your message"
+                      {...contact.fieldProps("message")}
+                    />
+                    {contact.errors.message && (
+                      <FieldError id={`${contact.fieldId("message")}-error`}>{contact.errors.message}</FieldError>
+                    )}
+                  </div>
                 </div>
 
-                <button type="submit" className="primary-button mt-6 w-full">
-                  Send Message <FiSend aria-hidden="true" />
+                {contact.errorCount > 0 && (
+                  <p role="status" className="mt-5 text-center text-xs text-red-300">
+                    Please fix the {contact.errorCount} highlighted field
+                    {contact.errorCount > 1 ? "s" : ""} above.
+                  </p>
+                )}
+
+                {contact.submitError && <FormError>{contact.submitError}</FormError>}
+
+                <button
+                  type="submit"
+                  disabled={contact.sending}
+                  aria-busy={contact.sending ? "true" : undefined}
+                  className="primary-button mt-6 w-full"
+                >
+                  {contact.sending ? "Sending…" : "Send Message"}
+                  {!contact.sending && <FiSend aria-hidden="true" />}
                 </button>
               </form>
             )}

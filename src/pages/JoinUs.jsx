@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  FiAlertCircle,
-  FiAlertTriangle,
   FiAward,
   FiBriefcase,
   FiClock,
@@ -15,6 +13,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
+import FieldError, { FormError } from "../components/FieldError";
 import { fadeUp, stagger } from "../lib/motion";
 import {
   hasLocalApplication,
@@ -146,15 +145,6 @@ function Required() {
     <span className="text-sky-300" aria-hidden="true">
       {" *"}
     </span>
-  );
-}
-
-function FieldError({ id, children }) {
-  return (
-    <p id={id} role="alert" className="mt-1.5 flex items-center gap-1.5 text-xs text-red-300">
-      <FiAlertCircle className="shrink-0" aria-hidden="true" />
-      {children}
-    </p>
   );
 }
 
@@ -650,15 +640,7 @@ function JoinUs() {
                     </p>
                   )}
 
-                  {submitError && (
-                    <p
-                      role="alert"
-                      className="mt-5 flex gap-2.5 rounded-lg border border-red-400/30 bg-red-400/8 p-3.5 text-xs leading-6 text-red-300"
-                    >
-                      <FiAlertTriangle className="mt-0.5 shrink-0" aria-hidden="true" />
-                      <span>{submitError}</span>
-                    </p>
-                  )}
+                  {submitError && <FormError>{submitError}</FormError>}
 
                   <button type="submit" disabled={sending} aria-busy={sending ? "true" : undefined} className="primary-button mt-7 w-full">
                     {sending ? "Submitting…" : "Submit Application"}

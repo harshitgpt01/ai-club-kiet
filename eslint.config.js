@@ -18,4 +18,13 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Everything under api/ is a Vercel Serverless Function, so it runs on Node
+    // and reads process.env rather than import.meta.env. Without this the browser
+    // globals above are the only ones in scope and `process` reads as undefined.
+    files: ['api/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ])

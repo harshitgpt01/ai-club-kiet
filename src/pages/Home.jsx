@@ -7,6 +7,7 @@ import {
   FiBarChart2,
   FiBookOpen,
   FiCalendar,
+  FiCheckCircle,
   FiChevronDown,
   FiCode,
   FiCpu,
@@ -26,7 +27,9 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import StatsBand from "../components/StatsBand";
 import TeamMarquee from "../components/TeamMarquee";
+import FieldError, { FormError } from "../components/FieldError";
 import { fadeUp, stagger } from "../lib/motion";
+import { useContactForm } from "../lib/useContactForm";
 import { DOMAINS, domainCounts, studentProjects } from "../data/projects";
 import { homeHighlights } from "../data/gallery";
 import { officeBearers, leads } from "../data/team";
@@ -174,6 +177,8 @@ function BrainHologram() {
 }
 
 function Home() {
+  const contact = useContactForm("home-contact");
+
   return (
     <motion.div className="site-shell relative overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
       <Navbar />
@@ -433,17 +438,88 @@ function Home() {
               ))}
             </motion.div>
           </div>
-          <motion.form variants={fadeUp} className="glass-panel rounded-xl p-6 sm:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input className="field" placeholder="Full name" aria-label="Full name" />
-              <input className="field" placeholder="Email address" aria-label="Email address" />
-            </div>
-            <input className="field mt-4" placeholder="Subject" aria-label="Subject" />
-            <textarea className="field mt-4 min-h-36 resize-y" placeholder="Tell us what you want to build." aria-label="Message" />
-            <button type="button" className="primary-button mt-5 w-full">
-              Send Message <FiSend aria-hidden="true" />
-            </button>
-          </motion.form>
+          <motion.div variants={fadeUp} className="glass-panel rounded-xl p-6 sm:p-8">
+            {contact.sent ? (
+              <div className="py-10 text-center">
+                <FiCheckCircle className="mx-auto text-5xl text-emerald-300" aria-hidden="true" />
+                <h3 className="mt-5 text-xl font-black text-white">Message Sent!</h3>
+                <p className="mt-2 text-sm text-slate-400">
+                  It's in the club inbox — we'll reply to the address you gave us.
+                </p>
+                <button type="button" onClick={contact.reset} className="ghost-button mt-6">
+                  Send another
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={contact.handleSubmit} noValidate>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <input
+                      className="field"
+                      type="text"
+                      placeholder="Full name"
+                      aria-label="Full name"
+                      autoComplete="name"
+                      {...contact.fieldProps("name")}
+                    />
+                    {contact.errors.name && (
+                      <FieldError id={`${contact.fieldId("name")}-error`}>{contact.errors.name}</FieldError>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      className="field"
+                      type="email"
+                      placeholder="Email address"
+                      aria-label="Email address"
+                      autoComplete="email"
+                      {...contact.fieldProps("email")}
+                    />
+                    {contact.errors.email && (
+                      <FieldError id={`${contact.fieldId("email")}-error`}>{contact.errors.email}</FieldError>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <input
+                    className="field"
+                    type="text"
+                    placeholder="Subject"
+                    aria-label="Subject"
+                    {...contact.fieldProps("subject")}
+                  />
+                  {contact.errors.subject && (
+                    <FieldError id={`${contact.fieldId("subject")}-error`}>{contact.errors.subject}</FieldError>
+                  )}
+                </div>
+
+                <div className="mt-4">
+                  <textarea
+                    className="field min-h-36 resize-y"
+                    placeholder="Tell us what you want to build."
+                    aria-label="Message"
+                    {...contact.fieldProps("message")}
+                  />
+                  {contact.errors.message && (
+                    <FieldError id={`${contact.fieldId("message")}-error`}>{contact.errors.message}</FieldError>
+                  )}
+                </div>
+
+                {contact.submitError && <FormError>{contact.submitError}</FormError>}
+
+                <button
+                  type="submit"
+                  disabled={contact.sending}
+                  aria-busy={contact.sending ? "true" : undefined}
+                  className="primary-button mt-5 w-full"
+                >
+                  {contact.sending ? "Sending…" : "Send Message"}
+                  {!contact.sending && <FiSend aria-hidden="true" />}
+                </button>
+              </form>
+            )}
+          </motion.div>
         </div>
       </motion.section>
 
