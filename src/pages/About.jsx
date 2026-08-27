@@ -17,6 +17,7 @@ import {
   FiMinus,
   FiPenTool,
   FiPlus,
+  FiRefreshCw,
   FiSearch,
   FiShield,
   FiTarget,
@@ -152,35 +153,50 @@ const faqs = [
   ],
 ];
 
-// Layer geometry for the neural-network diagram in the hero.
-const netLayers = [
-  { x: 68, ys: [130, 210, 290], label: "Curiosity" },
-  { x: 208, ys: [72, 150, 228, 306, 372], label: "Sessions" },
-  { x: 348, ys: [96, 174, 252, 330], label: "Bootcamps" },
-  { x: 488, ys: [174, 252], label: "Real projects" },
+// The hero card: what actually happens to a student between walking in and
+// shipping something. Each metric is the same figure `stats` above reports, so
+// the two never drift. --tint walks the brand ramp sky -> royal down the list.
+const flowStages = [
+  {
+    icon: FiCompass,
+    title: "Curiosity",
+    tint: "#7dd3fc",
+    body: "Anyone walks in — first years included. No prior AI or coding experience needed.",
+    metric: "1,900+ reached",
+  },
+  {
+    icon: FiMic,
+    title: "Sessions",
+    tint: "#38bdf8",
+    body: "Introduction to AI, then regular Python & ML classes that take you from basics to code.",
+    metric: "8 events",
+  },
+  {
+    icon: FiZap,
+    title: "Bootcamps",
+    tint: "#3b82f6",
+    body: "SkillSprint 3.0 on Gen AI & RAG, and the 2-day end-to-end ML pipeline sprint.",
+    metric: "50+ mentored",
+  },
+  {
+    icon: FiTrendingUp,
+    title: "Real projects",
+    tint: "#2563eb",
+    body: "Pipelines shipped to GitHub and showcased — ProPredict reached the Innotech finals.",
+    metric: "37 projects",
+  },
 ];
 
-const netEdges = netLayers.slice(0, -1).flatMap((layer, index) =>
-  layer.ys.flatMap((fromY) =>
-    netLayers[index + 1].ys.map((toY) => ({
-      x1: layer.x,
-      y1: fromY,
-      x2: netLayers[index + 1].x,
-      y2: toY,
-      depth: index,
-    }))
-  )
-);
-
-function NeuralFlow() {
+function ClubFlow() {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.96, x: 24 }}
       animate={{ opacity: 1, scale: 1, x: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="glass-panel glow-card relative rounded-xl p-5 sm:p-7"
+      className="glass-panel glow-card relative overflow-hidden rounded-xl p-5 sm:p-7"
     >
       <div className="grid-overlay" aria-hidden="true" />
+      <div className="flow-aura" aria-hidden="true" />
 
       <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -192,71 +208,38 @@ function NeuralFlow() {
             className="h-2 w-2 rounded-full bg-sky-300"
             style={{ animation: "nodeGlow 1.8s ease-in-out infinite" }}
           />
-          6 domains
+          Intake open
         </span>
       </div>
 
-      <svg
-        viewBox="0 0 556 440"
-        className="relative z-10 mt-4 h-auto w-full"
-        role="img"
-        aria-label="Diagram of a neural network: curiosity flows through sessions and bootcamps into real projects"
-      >
-        <defs>
-          <linearGradient id="aboutFlow" x1="0" x2="1">
-            <stop stopColor="#7dd3fc" />
-            <stop offset="0.55" stopColor="#38bdf8" />
-            <stop offset="1" stopColor="#2563eb" />
-          </linearGradient>
-          <filter id="aboutGlow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {netEdges.map((edge, index) => (
-          <line
-            key={`edge-${index}`}
-            x1={edge.x1}
-            y1={edge.y1}
-            x2={edge.x2}
-            y2={edge.y2}
-            stroke="url(#aboutFlow)"
-            strokeOpacity="0.42"
-            strokeWidth="1.1"
-            strokeDasharray="7 11"
-            style={{
-              animation: `dashFlow ${2.4 + edge.depth * 0.5}s linear infinite`,
-              animationDelay: `${(index % 7) * 0.16}s`,
-            }}
-          />
+      <ol className="relative z-10 mt-7 list-none p-0">
+        {flowStages.map(({ icon: Icon, title, body, metric, tint }, index) => (
+          <li
+            key={title}
+            className="flow-step grid grid-cols-[2.4rem_1fr] gap-x-4"
+            style={{ "--tint": tint, "--delay": `${index * 0.45}s` }}
+          >
+            <span className="flow-node" aria-hidden="true">
+              <Icon />
+            </span>
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
+                <h3 className="text-base font-black leading-none text-white">{title}</h3>
+                <span className="flow-metric">{metric}</span>
+              </div>
+              <p className="mt-2 text-[13px] leading-6 text-slate-400">{body}</p>
+            </div>
+          </li>
         ))}
+      </ol>
 
-        {netLayers.map((layer, layerIndex) => (
-          <g key={`layer-${layer.x}`}>
-            {layer.ys.map((y, nodeIndex) => (
-              <circle
-                key={`node-${layer.x}-${y}`}
-                cx={layer.x}
-                cy={y}
-                r={layerIndex === netLayers.length - 1 ? 9 : 6.5}
-                fill={layerIndex > 1 ? "#2563eb" : "#38bdf8"}
-                filter="url(#aboutGlow)"
-                style={{
-                  animation: `nodeGlow ${1.8 + (nodeIndex % 4) * 0.35}s ease-in-out infinite`,
-                  animationDelay: `${(layerIndex * 3 + nodeIndex) * 0.12}s`,
-                }}
-              />
-            ))}
-            <text x={layer.x} y="424" textAnchor="middle" className="fill-slate-400 text-[13px] font-bold">
-              {layer.label}
-            </text>
-          </g>
-        ))}
-      </svg>
+      {/* The pipeline is a loop, not a line — the last batch's output is what
+          the next one starts from, which is the whole point of the mentorship
+          program. Saying so closes the card. */}
+      <p className="relative z-10 mt-6 flex items-center gap-2.5 border-t border-white/8 pt-4 text-xs font-semibold text-slate-400">
+        <FiRefreshCw className="shrink-0 text-sm text-sky-300" aria-hidden="true" />
+        Then it loops — seniors mentor juniors, and every batch builds on the last one&apos;s work.
+      </p>
     </motion.div>
   );
 }
@@ -370,7 +353,7 @@ function About() {
             </motion.div>
           </div>
 
-          <NeuralFlow />
+          <ClubFlow />
         </motion.div>
       </section>
 

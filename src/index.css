@@ -691,6 +691,91 @@
     }
   }
 
+  /* ------------------------ about hero flow card ------------------------- */
+
+  /* The stages read top-to-bottom as one pipeline: each step owns a --tint off
+     the brand ramp, and the rail + travelling spark below it are drawn from
+     that same tint so the colour walks sky -> royal down the card. --delay
+     staggers the sparks into a wave; both custom properties are set inline in
+     src/pages/About.jsx because they are per-step data, not styling. */
+  .flow-aura {
+    position: absolute;
+    inset: -20% -10% 30%;
+    background:
+      radial-gradient(circle at 22% 18%, rgba(56, 189, 248, 0.2), transparent 16rem),
+      radial-gradient(circle at 78% 62%, rgba(37, 99, 235, 0.22), transparent 18rem);
+    filter: blur(26px);
+    pointer-events: none;
+  }
+
+  .flow-step {
+    --node: 2.4rem;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child) {
+    padding-bottom: 1.35rem;
+  }
+
+  /* the rail, drawn from the node's underside to the next node */
+  .flow-step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--node) + 0.35rem);
+    bottom: -0.35rem;
+    left: calc(var(--node) / 2 - 1px);
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--tint), rgba(37, 99, 235, 0.12));
+    opacity: 0.5;
+  }
+
+  /* the signal travelling down that rail */
+  .flow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--node) / 2 - 3px);
+    height: 6px;
+    width: 6px;
+    border-radius: 999px;
+    background: var(--tint);
+    box-shadow: 0 0 12px var(--tint);
+    animation: flowSpark 2.8s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .flow-node {
+    display: grid;
+    height: var(--node);
+    width: var(--node);
+    place-items: center;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--tint) 45%, transparent);
+    background:
+      linear-gradient(150deg, color-mix(in srgb, var(--tint) 22%, transparent), rgba(5, 14, 36, 0.5));
+    color: var(--tint);
+    font-size: 1.05rem;
+    box-shadow: 0 0 18px color-mix(in srgb, var(--tint) 22%, transparent);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .flow-step:hover .flow-node {
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 0 26px color-mix(in srgb, var(--tint) 40%, transparent);
+  }
+
+  .flow-metric {
+    border: 1px solid color-mix(in srgb, var(--tint) 32%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tint) 10%, transparent);
+    padding: 0.15rem 0.6rem;
+    color: #dbeafe;
+    font-size: 0.7rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
   @media (max-width: 900px) {
     .section-wrap {
       padding-block: 5rem;
@@ -722,12 +807,6 @@
   }
 }
 
-@keyframes dashFlow {
-  to {
-    stroke-dashoffset: -72;
-  }
-}
-
 @keyframes nodeGlow {
   0%,
   100% {
@@ -735,6 +814,26 @@
   }
   50% {
     opacity: 1;
+  }
+}
+
+/* One pulse of "signal" running down a .flow-step rail. top interpolates from
+   the node's underside to the next node, so the dot always lands on target
+   whatever height the step's copy takes. */
+@keyframes flowSpark {
+  0% {
+    top: calc(var(--node) + 0.35rem);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 0.35rem);
+    opacity: 0;
   }
 }
 
