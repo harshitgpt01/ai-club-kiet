@@ -10,6 +10,7 @@ import {
   FiLink,
   FiUsers,
 } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
@@ -78,6 +79,12 @@ const perks = [
   { icon: FiGlobe, title: "Industry Network", desc: "Direct access to industry sessions with engineers and researchers." },
   { icon: FiFileText, title: "Certificate & Recognition", desc: "Official club membership certificate and profile on our website." },
 ];
+
+// Shown as the next step on the confirmation screen — every applicant is asked
+// to join the group, because that is where shortlists, interview slots and
+// session timings are announced. Invite links can be reset from the group
+// admin screen, so this is the single place to change it.
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/BbfIZ5eTEBECYVDg4o60B8";
 
 const EMPTY_FORM = {
   name: "",
@@ -481,6 +488,32 @@ function JoinUs() {
                     Welcome aboard, {submitted.name.split(" ")[0]}! We'll review your application and reach
                     out to <strong className="text-sky-300">{submitted.email}</strong> within 3–5 days.
                   </p>
+
+                  {/* The one thing left for the applicant to do. WhatsApp is the
+                      club's announcement channel, so this is deliberately the
+                      loudest element on the confirmation screen. */}
+                  <div className="mt-7 rounded-xl border border-[#25d366]/30 bg-[#25d366]/[0.07] p-5 text-left">
+                    <h3 className="flex items-center gap-2 text-sm font-black text-white">
+                      <FaWhatsapp className="text-lg text-[#25d366]" aria-hidden="true" />
+                      One last step — join the WhatsApp group
+                    </h3>
+                    <p className="mt-2 text-xs leading-6 text-slate-400">
+                      Shortlists, interview slots and session timings go out here first. Joining now means
+                      you won't miss anything.
+                    </p>
+                    <a
+                      href={WHATSAPP_GROUP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex min-h-[46px] w-full items-center justify-center gap-2.5 rounded-lg border border-[#25d366]/45 bg-gradient-to-br from-[#25d366] to-[#128c7e] px-5 py-3 text-[0.94rem] font-extrabold text-white no-underline shadow-[0_0_26px_rgba(37,211,102,0.32)] transition duration-200 hover:-translate-y-0.5 hover:border-[#25d366]/70 hover:shadow-[0_0_34px_rgba(37,211,102,0.45)]"
+                    >
+                      <FaWhatsapp className="text-lg" aria-hidden="true" />
+                      Join the AI Club WhatsApp Group
+                    </a>
+                    <p className="mt-2.5 break-all text-[0.7rem] leading-5 text-slate-500">
+                      Link not opening? Copy it: {WHATSAPP_GROUP_URL}
+                    </p>
+                  </div>
 
                   <dl className="mt-8 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-5 text-left text-sm">
                     {[
