@@ -1,5 +1,5 @@
 // One continuously scrolling row of the roster cutouts, used on Home where the
-// full 11-card grid would swallow the page. The track carries the roster twice
+// full card grid would swallow the page. The track carries the roster twice
 // and slides by exactly half its width, so copy 2 lands where copy 1 started and
 // the seam never shows (see .team-marquee in index.css for why the spacing is a
 // card margin rather than a flex gap).

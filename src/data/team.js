@@ -11,6 +11,7 @@ import antasDubey from "../assets/team/antas-dubey.webp";
 import architDubey from "../assets/team/archit-dubey.webp";
 import adarshSrivastava from "../assets/team/adarsh-srivastava.webp";
 import ganeshKanojiya from "../assets/team/ganesh-kanojiya.webp";
+import gauravJain from "../assets/team/gaurav-jain.webp";
 import harshitGupta from "../assets/team/harshit-gupta.webp";
 import adityaSingh from "../assets/team/aditya-singh.webp";
 import mehakBhatia from "../assets/team/mehak-bhatia.webp";
@@ -24,10 +25,12 @@ export const officeBearers = [
   { name: "Archit Dubey", role: "Vice President", photo: architDubey },
 ];
 
-// Nine leads — a clean 3x3 at desktop.
+// Domain leads, ordered so the pairs who share a role (AI Security, Academic)
+// sit next to each other in the grid.
 export const leads = [
   { name: "Adarsh Srivastava", role: "ML Lead", photo: adarshSrivastava },
   { name: "Ganesh Kanojiya", role: "AI Security Lead", photo: ganeshKanojiya },
+  { name: "Gaurav Jain", role: "AI Security Lead", photo: gauravJain },
   { name: "Harshit Gupta", role: "Web Lead", photo: harshitGupta },
   { name: "Aditya Singh", role: "Academic Lead", photo: adityaSingh },
   { name: "Mehak Bhatia", role: "Academic Lead", photo: mehakBhatia },
