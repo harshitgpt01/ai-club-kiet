@@ -67,6 +67,7 @@ function toRow(record) {
     registration_number: record.regNo,
     branch: record.branch,
     section: record.section,
+    year: record.year,
     accommodation: record.accommodation,
     email: record.email,
     phone: record.phone,
@@ -79,10 +80,12 @@ function toRow(record) {
 }
 
 // Everything the table requires. A record queued by an older build predates the
-// gender / registration number / accommodation / split-domain columns, so there
-// is nothing to send for them and no way to invent one.
+// gender / registration number / accommodation / year / split-domain columns, so
+// there is nothing to send for them and no way to invent one.
 function isComplete(record) {
-  return Boolean(record.gender && record.regNo && record.accommodation && record.workingDomain);
+  return Boolean(
+    record.gender && record.regNo && record.accommodation && record.year && record.workingDomain,
+  );
 }
 
 // Two columns are UNIQUE, so a 23505 has to be attributed to one of them before
@@ -189,6 +192,7 @@ const CSV_COLUMNS = [
   "Registration No.",
   "Branch",
   "Section",
+  "Year",
   "Accommodation",
   "KIET Email",
   "Phone",
@@ -217,6 +221,7 @@ export function toCsv(rows) {
     r.regNo,
     r.branch,
     r.section,
+    r.year,
     r.accommodation,
     r.email,
     r.phone,

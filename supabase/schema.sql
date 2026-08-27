@@ -48,6 +48,10 @@ create table if not exists public.applications (
   registration_number text        not null unique,
   branch              text        not null,
   section             text        not null,
+  -- Recruitment is open to first and second years only. Deliberately stored as
+  -- the label the form shows rather than an int, so an export reads the same as
+  -- the application did.
+  year                text        not null,
   -- Hosteller = lives on campus; Day Scholar / PG = commutes in, either from
   -- home or from a rented room off campus.
   accommodation       text        not null,
@@ -73,6 +77,12 @@ create table if not exists public.applications (
     check (registration_number ~ '^[A-Z0-9]{6,20}$'),
   constraint applications_section_valid
     check (section ~ '^[A-Z0-9]{1,3}$'),
+  -- `branch` is deliberately unconstrained: KIET adds and renames programmes
+  -- every intake, and a CHECK here would silently reject a real applicant the
+  -- moment src/pages/JoinUs.jsx grew a branch this file had not been taught yet.
+  -- Keep this list in sync with `years` in src/pages/JoinUs.jsx.
+  constraint applications_year_valid
+    check (year in ('1st Year', '2nd Year')),
   -- Keep this list in sync with `accommodations` in src/pages/JoinUs.jsx.
   constraint applications_accommodation_valid
     check (accommodation in ('Hosteller', 'Day Scholar / PG')),
@@ -99,8 +109,8 @@ create table if not exists public.applications (
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Migration. `create table if not exists` skips an existing table outright, so
 -- this is what brings a table made by an earlier revision — no gender,
--- registration number or accommodation, all domains in one text[], and the old
--- three-way accommodation split — up to the shape above. Every statement is a
+-- registration number, accommodation or year, all domains in one text[], and the
+-- old three-way accommodation split — up to the shape above. Every statement is a
 -- no-op on a database the create just built, and the whole block is safe to run
 -- repeatedly.
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -109,6 +119,7 @@ begin
   alter table public.applications add column if not exists gender              text;
   alter table public.applications add column if not exists registration_number text;
   alter table public.applications add column if not exists accommodation       text;
+  alter table public.applications add column if not exists year                text;
   alter table public.applications add column if not exists working_domain      text;
   alter table public.applications add column if not exists co_domain           text;
 
@@ -169,6 +180,7 @@ begin
     alter table public.applications alter column gender              set not null;
     alter table public.applications alter column registration_number set not null;
     alter table public.applications alter column accommodation       set not null;
+    alter table public.applications alter column year                set not null;
     alter table public.applications alter column working_domain      set not null;
 
     -- The same definitions as the create table above, re-stated because ALTER TABLE
@@ -190,6 +202,10 @@ begin
     alter table public.applications add  constraint applications_accommodation_valid
       check (accommodation in ('Hosteller', 'Day Scholar / PG'));
 
+    alter table public.applications drop constraint if exists applications_year_valid;
+    alter table public.applications add  constraint applications_year_valid
+      check (year in ('1st Year', '2nd Year'));
+
     alter table public.applications drop constraint if exists applications_working_domain_valid;
     alter table public.applications add  constraint applications_working_domain_valid
       check (working_domain = any (public.ai_club_working_domains()));
@@ -202,7 +218,7 @@ begin
     -- still fails loudly instead of being swallowed as a notice.
     when not_null_violation or check_violation or unique_violation then
       raise notice
-        'public.applications: existing rows are blocking the new constraints (%). Every row needs a gender (either Male or Female), a registration_number (6-20 characters, A-Z and 0-9 only), an accommodation (either Hosteller or the single value "Day Scholar / PG"), a working_domain (Web Development / Media & Graphics / Management & PR / Corporate & Finance) and either a null co_domain or one of AI & ML / AI Security. Gender used to also allow Other and "Prefer not to say", and domain picks made under the old combined list have no automatic equivalent, so remap or delete those rows by hand — the original domain array is kept in legacy_domains — then run this file again. Until then the new columns are unconstrained, so keep the window short.',
+        'public.applications: existing rows are blocking the new constraints (%). Every row needs a gender (either Male or Female), a registration_number (6-20 characters, A-Z and 0-9 only), an accommodation (either Hosteller or the single value "Day Scholar / PG"), a year (either "1st Year" or "2nd Year"), a working_domain (Web Development / Media & Graphics / Management & PR / Corporate & Finance) and either a null co_domain or one of AI & ML / AI Security. Gender used to also allow Other and "Prefer not to say", the year column did not exist at all before this revision (fill it from each applicant''s registration number), and domain picks made under the old combined list have no automatic equivalent, so remap or delete those rows by hand — the original domain array is kept in legacy_domains — then run this file again. Until then the new columns are unconstrained, so keep the window short.',
         sqlerrm;
   end;
 end $$;

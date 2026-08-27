@@ -37,7 +37,17 @@ const branches = [
   "ECE(VLSI)",
   "ME",
   "AMIA",
+  // Non-B.Tech programmes. The branch column has no CHECK constraint, so this
+  // list is the only place it is defined.
+  "MBA",
+  "MCA",
+  "B.Pharma",
 ];
+
+// Recruitment is open to first and second years only — seniors are past the
+// point where a two-year membership makes sense. Keep in sync with
+// `applications_year_valid` in supabase/schema.sql.
+const years = ["1st Year", "2nd Year"];
 
 // Keep in sync with `applications_gender_valid` in supabase/schema.sql.
 const genders = ["Male", "Female"];
@@ -75,6 +85,7 @@ const EMPTY_FORM = {
   regNo: "",
   branch: "",
   section: "",
+  year: "",
   accommodation: "",
   email: "",
   phone: "",
@@ -121,6 +132,8 @@ function validate(form) {
 
   if (!section) errors.section = "Enter your section.";
   else if (!SECTION_RE.test(section)) errors.section = "1–3 letters or digits (e.g. A, B2, C).";
+
+  if (!form.year) errors.year = "Select your year of study.";
 
   if (!form.accommodation) errors.accommodation = "Tell us where you stay during the semester.";
 
@@ -276,6 +289,7 @@ const FOCUS_ORDER = [
   "regNo",
   "branch",
   "section",
+  "year",
   "accommodation",
   "email",
   "phone",
@@ -345,6 +359,7 @@ function JoinUs() {
       regNo,
       branch: form.branch,
       section: form.section.trim().toUpperCase(),
+      year: form.year,
       accommodation: form.accommodation,
       email,
       phone: normalizePhone(form.phone),
@@ -472,6 +487,7 @@ function JoinUs() {
                       ["Registration No.", submitted.regNo],
                       ["Gender", submitted.gender],
                       ["Branch", `${submitted.branch} · Section ${submitted.section}`],
+                      ["Year", submitted.year],
                       ["Accommodation", submitted.accommodation],
                       ["Phone", submitted.phone],
                       ["Co-Domain", submitted.coDomain || "—"],
@@ -571,15 +587,27 @@ function JoinUs() {
                       />
                     </div>
 
-                    <SelectField
-                      name="accommodation"
-                      label="Mode of Accommodation"
-                      value={form.accommodation}
-                      error={errors.accommodation}
-                      onChange={updateField}
-                      options={accommodations}
-                      placeholder="Select accommodation"
-                    />
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <SelectField
+                        name="year"
+                        label="Year"
+                        value={form.year}
+                        error={errors.year}
+                        onChange={updateField}
+                        options={years}
+                        placeholder="Select year"
+                      />
+
+                      <SelectField
+                        name="accommodation"
+                        label="Mode of Accommodation"
+                        value={form.accommodation}
+                        error={errors.accommodation}
+                        onChange={updateField}
+                        options={accommodations}
+                        placeholder="Select accommodation"
+                      />
+                    </div>
 
                     <TextField
                       name="email"
