@@ -530,7 +530,7 @@ function JoinUs() {
                 <form onSubmit={handleSubmit} noValidate>
                   <h2 className="text-xl font-black text-white">Recruitment Application</h2>
                   <p className="mt-1 text-sm text-slate-400">
-                    Everything except the co-domain is required. Takes about a minute.
+                    Takes about a minute.
                   </p>
 
                   <div className="mt-7 grid gap-5">
