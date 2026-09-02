@@ -507,7 +507,10 @@
   .team-marquee {
     position: relative;
     overflow: hidden;
-    /* Cards fade in and out at the edges instead of being cut off mid-figure. */
+    /* Cards fade in and out at the edges instead of being cut off mid-figure.
+       Prefixed too: Safari only took the unprefixed property in 15.4, and below
+       that the whole declaration is dropped and the figures get a hard cut. */
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
     mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
   }
 
@@ -517,9 +520,19 @@
     animation: marquee 48s linear infinite;
   }
 
-  /* Holds the row still so a face can be read, or a card hovered. focus-within
-     covers keyboard users landing on anything inside. */
-  .team-marquee:hover .team-marquee-track,
+  /* Holds the row still so a face can be read, or a card hovered. Gated on a
+     real hovering pointer: touch browsers latch :hover on the tapped element
+     until something else is tapped, so one stray finger on the row — which is
+     easy, it spans the section and the page scrolls under it — paused the
+     marquee for the rest of the visit and read as "the team row is dead". */
+  @media (hover: hover) and (pointer: fine) {
+    .team-marquee:hover .team-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  /* focus-within stays ungated for keyboard users; nothing inside the row is
+     focusable, so touch cannot trip it. */
   .team-marquee:focus-within .team-marquee-track {
     animation-play-state: paused;
   }

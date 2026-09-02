@@ -54,7 +54,13 @@ function Team() {
         className="section-wrap pt-20"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.12 }}
+        /* "some" (threshold 0), not a ratio: `amount` is a fraction of *this
+           section*, and on one column the twelve 3:4 photo cards make it around
+           7000px tall. A 0.12 ratio then asked for ~850px on screen at once,
+           more than a phone viewport has, so the observer never fired and the
+           whole roster sat at the `hidden` opacity: 0 forever. Any ratio is a
+           trap on a section that is always taller than the screen. */
+        viewport={{ once: true, amount: "some" }}
         variants={staggerTight}
       >
         <div className="section-inner">
