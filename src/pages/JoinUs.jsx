@@ -441,35 +441,11 @@ function JoinUs() {
         </motion.div>
       </section>
 
-      {/* Perks */}
+      {/* Recruitment form — first, so the form is the first thing a visitor
+          who already knows they want in can act on. The "why join" perks sit
+          below it for anyone still deciding. */}
       <motion.section
         className="section-wrap pt-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.12 }}
-        variants={stagger}
-      >
-        <div className="section-inner">
-          <SectionHeader eyebrow="Why join" title="What You Get Out of It">
-            Six things every member gets, from the first session onward.
-          </SectionHeader>
-          <motion.div variants={stagger} className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {perks.map(({ icon: Icon, title, desc }) => (
-              <motion.article key={title} variants={fadeUp} className="glass-panel glow-card rounded-xl p-6">
-                <span className="relative z-10 grid h-11 w-11 place-items-center rounded-lg border border-sky-300/25 bg-sky-300/5 text-xl text-sky-300">
-                  <Icon aria-hidden="true" />
-                </span>
-                <h3 className="relative z-10 mt-5 text-base font-black text-white">{title}</h3>
-                <p className="relative z-10 mt-2 text-sm leading-7 text-slate-400">{desc}</p>
-              </motion.article>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Recruitment form */}
-      <motion.section
-        className="section-wrap pb-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.06 }}
@@ -710,6 +686,32 @@ function JoinUs() {
                 </form>
               )}
             </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Perks */}
+      <motion.section
+        className="section-wrap pb-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        variants={stagger}
+      >
+        <div className="section-inner">
+          <SectionHeader eyebrow="Why join" title="What You Get Out of It">
+            Six things every member gets, from the first session onward.
+          </SectionHeader>
+          <motion.div variants={stagger} className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {perks.map(({ icon: Icon, title, desc }) => (
+              <motion.article key={title} variants={fadeUp} className="glass-panel glow-card rounded-xl p-6">
+                <span className="relative z-10 grid h-11 w-11 place-items-center rounded-lg border border-sky-300/25 bg-sky-300/5 text-xl text-sky-300">
+                  <Icon aria-hidden="true" />
+                </span>
+                <h3 className="relative z-10 mt-5 text-base font-black text-white">{title}</h3>
+                <p className="relative z-10 mt-2 text-sm leading-7 text-slate-400">{desc}</p>
+              </motion.article>
+            ))}
           </motion.div>
         </div>
       </motion.section>
