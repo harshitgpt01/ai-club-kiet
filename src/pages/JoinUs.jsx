@@ -256,7 +256,7 @@ function DomainPicker({ name, legend, note, options, value, error, required, onP
       <legend className="field-label p-0">
         {legend}
         {required && <Required />}
-        <span className="font-medium text-slate-500"> — {note}</span>
+        {note && <span className="font-medium text-slate-500"> — {note}</span>}
       </legend>
       <div className="flex flex-wrap gap-2" aria-describedby={errorId}>
         {noneLabel && (
@@ -499,7 +499,7 @@ function JoinUs() {
                       ["Year", submitted.year],
                       ["Accommodation", submitted.accommodation],
                       ["Phone", submitted.phone],
-                      ["Co-Domain", submitted.coDomain || "—"],
+                      ["Domain", submitted.coDomain || "—"],
                       ["Working Domain", submitted.workingDomain],
                     ].map(([term, value]) => (
                       <div key={term} className="contents">
@@ -649,8 +649,7 @@ function JoinUs() {
                         neither pick constrains the other. */}
                     <DomainPicker
                       name="coDomain"
-                      legend="Co-Domain"
-                      note="optional technical track"
+                      legend="Domain"
                       options={coDomains}
                       value={form.coDomain}
                       error={errors.coDomain}
