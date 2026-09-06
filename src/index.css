@@ -143,6 +143,13 @@
     padding-top: calc(var(--nav-h) + 3.5rem);
   }
 
+  /* When the notice strip runs above a hero it has already cleared the fixed
+     navbar (see .notice-marquee-bar), so the hero drops that part of its
+     padding. Keeping it here means neither page has to hard-code the number. */
+  .notice-marquee-bar + .page-hero {
+    padding-top: 3.5rem;
+  }
+
   .section-wrap {
     position: relative;
     z-index: 1;
@@ -574,6 +581,96 @@
 
     .team-marquee-card {
       scroll-snap-align: center;
+    }
+  }
+
+  /* --------------------------- notice marquee ---------------------------- */
+
+  /* The registration-deadline strip on Home and Join Us. Sits directly under the
+     fixed navbar on Home, so it carries its own top border rather than relying
+     on the nav's. */
+  .notice-marquee-bar {
+    position: relative;
+    z-index: 30;
+    /* The navbar is fixed, so it does not reserve space in the flow. The bar
+       renders immediately after it and clears it itself. */
+    margin-top: var(--nav-h);
+    border-block: 1px solid rgba(56, 189, 248, 0.28);
+    background:
+      linear-gradient(90deg, rgba(37, 99, 235, 0.32), rgba(56, 189, 248, 0.16), rgba(37, 99, 235, 0.32)),
+      #060f28;
+    box-shadow: 0 8px 30px rgba(1, 5, 18, 0.35);
+  }
+
+  /* Same masked, two-copy track as .team-marquee — see the note there for why
+     the spacing is a per-item margin instead of a flex gap. */
+  .notice-marquee {
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+  }
+
+  .notice-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Hold the text still long enough to read it. Gated on a real hovering
+     pointer: touch browsers latch :hover on the tapped element, so one stray
+     finger would pause the strip for the rest of the visit. */
+  @media (hover: hover) and (pointer: fine) {
+    .notice-marquee-bar:hover .notice-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  .notice-marquee-copy {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .notice-marquee-item {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.55rem;
+    margin-inline-end: 3rem;
+    padding-block: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #e0f2fe;
+    text-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+  }
+
+  .notice-marquee-icon {
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: #7dd3fc;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* No scroll — one static, centred line. The duplicate copy exists only to
+       feed the loop, so it goes, and so do the repeats within the first copy. */
+    .notice-marquee-track {
+      animation: none;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .notice-marquee-copy:last-child,
+    .notice-marquee-item:not(:first-child) {
+      display: none;
+    }
+
+    .notice-marquee-item {
+      margin-inline-end: 0;
+      white-space: normal;
+      text-align: center;
     }
   }
 

@@ -24,6 +24,7 @@ import {
 } from "react-icons/fi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import NoticeMarquee from "../components/NoticeMarquee";
 import SectionHeader from "../components/SectionHeader";
 import StatsBand from "../components/StatsBand";
 import TeamMarquee from "../components/TeamMarquee";
@@ -182,6 +183,8 @@ function Home() {
   return (
     <motion.div className="site-shell relative overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
       <Navbar />
+
+      <NoticeMarquee />
 
       <section id="hero" className="cyber-hero page-hero relative min-h-[760px] overflow-hidden pb-16 gutter lg:min-h-screen">
         <ParticleField />

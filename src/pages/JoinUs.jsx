@@ -13,6 +13,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import NoticeMarquee from "../components/NoticeMarquee";
 import SectionHeader from "../components/SectionHeader";
 import FieldError, { FormError } from "../components/FieldError";
 import { fadeUp, stagger } from "../lib/motion";
@@ -416,6 +417,8 @@ function JoinUs() {
       transition={{ duration: 0.35 }}
     >
       <Navbar />
+
+      <NoticeMarquee />
 
       <section className="cyber-hero page-hero relative overflow-hidden pb-16 gutter">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(37,99,235,0.24),transparent_30rem),radial-gradient(circle_at_16%_40%,rgba(56,189,248,0.1),transparent_24rem)]" />
