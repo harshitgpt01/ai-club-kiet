@@ -30,6 +30,7 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import StatsBand from "../components/StatsBand";
 import { fadeUp, stagger } from "../lib/motion";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 
 const stats = [
   { value: 1900, suffix: "+", label: "Students Reached", icon: FiUsers },
@@ -550,11 +551,14 @@ function About() {
           <div className="grid-overlay" aria-hidden="true" />
           <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Ready to build with us?</h2>
           <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            Applications stay open through the semester. Bring curiosity — we will handle the rest.
+            {REGISTRATIONS_OPEN
+              ? "Applications stay open through the semester. Bring curiosity — we will handle the rest."
+              : "Applications for this cycle are closed. The Join Us page has the WhatsApp group where the next drive is announced first."}
           </p>
           <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link to="/join" className="primary-button min-w-48">
-              Apply for Membership <FiArrowRight aria-hidden="true" />
+              {REGISTRATIONS_OPEN ? "Apply for Membership" : "See recruitment status"}{" "}
+              <FiArrowRight aria-hidden="true" />
             </Link>
             <Link to="/team" className="ghost-button min-w-48">
               <FiUsers aria-hidden="true" /> Meet the Team

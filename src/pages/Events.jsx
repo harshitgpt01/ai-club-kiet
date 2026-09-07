@@ -8,6 +8,7 @@ import SectionHeader from "../components/SectionHeader";
 import EventCard from "../components/EventCard";
 import { fadeUp, stagger } from "../lib/motion";
 import { eventCovers } from "../data/gallery";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 
 const allEvents = [
   { id: 1, title: "Internal Mentorship Program", date: "Ongoing", venue: "KIET Campus", type: "Program", status: "ongoing", cover: eventCovers.mentorship, desc: "An ongoing mentorship initiative for first-year students, where senior members provide guidance, structured learning paths, and continuous support to build strong foundations in AI/ML.", tags: ["50+ Students", "1st Year Guidance", "Mentorship"] },
@@ -125,11 +126,14 @@ function Events() {
           <div className="grid-overlay" aria-hidden="true" />
           <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Want in on the next one?</h2>
           <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            Members hear about sessions first. Applications stay open through the semester.
+            {REGISTRATIONS_OPEN
+              ? "Members hear about sessions first. Applications stay open through the semester."
+              : "Membership applications are closed for this cycle, but sessions and showcases stay open to everyone."}
           </p>
           <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link to="/join" className="primary-button min-w-48">
-              Join the Club <FiArrowRight aria-hidden="true" />
+              {REGISTRATIONS_OPEN ? "Join the Club" : "See recruitment status"}{" "}
+              <FiArrowRight aria-hidden="true" />
             </Link>
             <Link to="/gallery" className="ghost-button min-w-48">
               <FiUsers aria-hidden="true" /> See the Photos

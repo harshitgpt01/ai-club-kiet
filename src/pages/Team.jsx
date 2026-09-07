@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import TeamCard from "../components/TeamCard";
 import { fadeUp, stagger, staggerTight } from "../lib/motion";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 import { officeBearers, leads } from "../data/team";
 
 // One roster on this page: the office bearers lead the grid, then the domain leads.
@@ -128,10 +129,12 @@ function Team() {
           <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Want to be part of this?</h2>
           <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
             Recruitment runs in multiple rounds — screening, technical evaluation, and interviews.
+            {!REGISTRATIONS_OPEN && " This cycle's applications are now closed."}
           </p>
           <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link to="/join" className="primary-button min-w-48">
-              Apply Now <FiArrowRight aria-hidden="true" />
+              {REGISTRATIONS_OPEN ? "Apply Now" : "See recruitment status"}{" "}
+              <FiArrowRight aria-hidden="true" />
             </Link>
             <Link to="/contact" className="ghost-button min-w-48">
               <FiMail aria-hidden="true" /> Ask a Question

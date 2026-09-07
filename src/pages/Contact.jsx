@@ -17,6 +17,7 @@ import SectionHeader from "../components/SectionHeader";
 import FieldError, { FormError } from "../components/FieldError";
 import { fadeUp, stagger } from "../lib/motion";
 import { useContactForm } from "../lib/useContactForm";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 
 const socials = [
   { label: "Introduction to AI — Instagram", icon: FiInstagram, href: "https://www.instagram.com/p/DO2sIagElzd/" },
@@ -244,11 +245,14 @@ function Contact() {
           <div className="grid-overlay" aria-hidden="true" />
           <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Looking to join instead?</h2>
           <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            Membership runs through the recruitment application, not this form.
+            {REGISTRATIONS_OPEN
+              ? "Membership runs through the recruitment application, not this form."
+              : "Membership runs through the recruitment drive, not this form — and this cycle's applications are closed."}
           </p>
           <div className="relative z-10 mt-8 flex justify-center">
             <Link to="/join" className="primary-button min-w-48">
-              Apply for Membership <FiArrowRight aria-hidden="true" />
+              {REGISTRATIONS_OPEN ? "Apply for Membership" : "See recruitment status"}{" "}
+              <FiArrowRight aria-hidden="true" />
             </Link>
           </div>
         </motion.div>

@@ -1,8 +1,11 @@
 import { FiAlertCircle } from "react-icons/fi";
+import { REGISTRATION_NOTICE } from "../lib/recruitment";
 
-// The deadline banner, shown on Home and Join Us. One constant so the two pages
-// can never disagree about the closing time.
-export const REGISTRATION_NOTICE = "Registrations will be closing on 7 September, 12 PM";
+// The deadline banner, shown on Home and Join Us. The sentence itself lives in
+// lib/recruitment so the strip, the form, and the CTAs can never disagree about
+// whether the drive is open. Re-exported here because that is where the two
+// pages already import it from.
+export { REGISTRATION_NOTICE };
 
 // A continuously scrolling notice strip. Same two-copy trick as TeamMarquee: the
 // track carries the items twice and slides by exactly half its width, so copy 2

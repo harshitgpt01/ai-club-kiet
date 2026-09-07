@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import { fadeUp, staggerTight } from "../lib/motion";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 import { photos } from "../data/gallery";
 
 // Categorical, not decorative: each tag keeps its own hue so the archive stays
@@ -239,11 +240,14 @@ function Gallery() {
           <div className="grid-overlay" aria-hidden="true" />
           <h2 className="relative z-10 text-3xl font-black text-white sm:text-4xl">Be in the next batch of photos</h2>
           <p className="relative z-10 mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            Every shot here started with someone applying. Applications stay open through the semester.
+            {REGISTRATIONS_OPEN
+              ? "Every shot here started with someone applying. Applications stay open through the semester."
+              : "Every shot here started with someone applying. This cycle's applications are closed — the next drive is announced on the Join Us page."}
           </p>
           <div className="relative z-10 mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link to="/join" className="primary-button min-w-48">
-              Join the Club <FiArrowRight aria-hidden="true" />
+              {REGISTRATIONS_OPEN ? "Join the Club" : "See recruitment status"}{" "}
+              <FiArrowRight aria-hidden="true" />
             </Link>
             <Link to="/events" className="ghost-button min-w-48">
               <FiCalendar aria-hidden="true" /> Browse Events

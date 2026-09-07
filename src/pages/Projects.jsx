@@ -15,6 +15,7 @@ import Footer from "../components/Footer";
 import SectionHeader from "../components/SectionHeader";
 import StatsBand from "../components/StatsBand";
 import { fadeUp, staggerTight } from "../lib/motion";
+import { REGISTRATIONS_OPEN } from "../lib/recruitment";
 import {
   DOMAINS,
   domainCounts,
@@ -289,7 +290,8 @@ function Projects() {
             </div>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link to="/join" className="primary-button min-w-48">
-                Build with us <FiArrowRight aria-hidden="true" />
+                {REGISTRATIONS_OPEN ? "Build with us" : "See recruitment status"}{" "}
+                <FiArrowRight aria-hidden="true" />
               </Link>
               <Link to="/events" className="ghost-button min-w-48">
                 <FiAward aria-hidden="true" /> All events

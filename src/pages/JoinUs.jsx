@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
+  FiArrowRight,
   FiAward,
   FiBriefcase,
   FiClock,
@@ -8,9 +9,12 @@ import {
   FiFileText,
   FiGlobe,
   FiLink,
+  FiLock,
+  FiMail,
   FiUsers,
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NoticeMarquee from "../components/NoticeMarquee";
@@ -23,6 +27,11 @@ import {
   submitApplication,
   syncPendingApplications,
 } from "../lib/applications";
+import {
+  REGISTRATIONS_OPEN,
+  REGISTRATION_DEADLINE,
+  WHATSAPP_GROUP_URL,
+} from "../lib/recruitment";
 
 const branches = [
   "CSE",
@@ -80,12 +89,6 @@ const perks = [
   { icon: FiGlobe, title: "Industry Network", desc: "Direct access to industry sessions with engineers and researchers." },
   { icon: FiFileText, title: "Certificate & Recognition", desc: "Official club membership certificate and profile on our website." },
 ];
-
-// Shown as the next step on the confirmation screen — every applicant is asked
-// to join the group, because that is where shortlists, interview slots and
-// session timings are announced. Invite links can be reset from the group
-// admin screen, so this is the single place to change it.
-const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/BbfIZ5eTEBECYVDg4o60B8";
 
 const EMPTY_FORM = {
   name: "",
@@ -336,6 +339,10 @@ function JoinUs() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // The form is not rendered while the drive is closed, so this only matters
+    // if the flag flips between mount and submit — but the check is one line and
+    // it keeps "closed" from depending on the render path alone.
+    if (!REGISTRATIONS_OPEN) return;
     if (sending) return; // ignore a double-click on the submit button
     setAttempted(true);
     setSubmitError("");
@@ -430,7 +437,7 @@ function JoinUs() {
           className="container-page relative z-10 text-center"
         >
           <motion.span variants={fadeUp} className="eyebrow">
-            Recruitment Open
+            {REGISTRATIONS_OPEN ? "Recruitment Open" : "Recruitment Closed"}
           </motion.span>
           <motion.h1
             variants={fadeUp}
@@ -439,14 +446,18 @@ function JoinUs() {
             Join AI Club <span className="neon-text">KIET</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[560px] text-lg leading-8 text-white/85">
-            No prior experience required. Just curiosity, commitment, and a willingness to build things.
+            {REGISTRATIONS_OPEN
+              ? "No prior experience required. Just curiosity, commitment, and a willingness to build things."
+              : `Applications for this cycle closed on ${REGISTRATION_DEADLINE}. The next drive is announced in the WhatsApp group first.`}
           </motion.p>
         </motion.div>
       </section>
 
       {/* Recruitment form — first, so the form is the first thing a visitor
           who already knows they want in can act on. The "why join" perks sit
-          below it for anyone still deciding. */}
+          below it for anyone still deciding. While the drive is closed, the
+          closed notice takes the same slot: the page still answers "how do I
+          join", it just answers "not right now, here is where to watch". */}
       <motion.section
         className="section-wrap pt-20"
         initial="hidden"
@@ -457,7 +468,54 @@ function JoinUs() {
         <div className="section-inner">
           <motion.div variants={fadeUp} className="mx-auto w-full max-w-[640px]">
             <div className="glass-panel rounded-xl p-6 sm:p-8">
-              {submitted ? (
+              {!REGISTRATIONS_OPEN ? (
+                <div className="py-6 text-center">
+                  <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-sky-300/25 bg-sky-300/5 text-2xl text-sky-300">
+                    <FiLock aria-hidden="true" />
+                  </span>
+                  <h2 className="mt-5 text-2xl font-black text-white">Registrations Are Closed</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-400">
+                    This cycle's applications closed on{" "}
+                    <strong className="text-sky-300">{REGISTRATION_DEADLINE}</strong>. If you already
+                    applied, watch your KIET inbox — shortlists and interview slots go out from there.
+                  </p>
+
+                  {/* The only action left for someone who missed the window.
+                      WhatsApp is the club's announcement channel, so the next
+                      drive shows up here before it shows up on the site. */}
+                  <div className="mt-7 rounded-xl border border-[#25d366]/30 bg-[#25d366]/[0.07] p-5 text-left">
+                    <h3 className="flex items-center gap-2 text-sm font-black text-white">
+                      <FaWhatsapp className="text-lg text-[#25d366]" aria-hidden="true" />
+                      Get told when the next drive opens
+                    </h3>
+                    <p className="mt-2 text-xs leading-6 text-slate-400">
+                      The group is where the next recruitment window is announced first, along with
+                      session timings and open events anyone can attend.
+                    </p>
+                    <a
+                      href={WHATSAPP_GROUP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex min-h-[46px] w-full items-center justify-center gap-2.5 rounded-lg border border-[#25d366]/45 bg-gradient-to-br from-[#25d366] to-[#128c7e] px-5 py-3 text-[0.94rem] font-extrabold text-white no-underline shadow-[0_0_26px_rgba(37,211,102,0.32)] transition duration-200 hover:-translate-y-0.5 hover:border-[#25d366]/70 hover:shadow-[0_0_34px_rgba(37,211,102,0.45)]"
+                    >
+                      <FaWhatsapp className="text-lg" aria-hidden="true" />
+                      Join the AI Club WhatsApp Group
+                    </a>
+                    <p className="mt-2.5 break-all text-[0.7rem] leading-5 text-slate-500">
+                      Link not opening? Copy it: {WHATSAPP_GROUP_URL}
+                    </p>
+                  </div>
+
+                  <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+                    <Link to="/events" className="ghost-button">
+                      See upcoming events <FiArrowRight aria-hidden="true" />
+                    </Link>
+                    <Link to="/contact" className="ghost-button">
+                      <FiMail aria-hidden="true" /> Ask a question
+                    </Link>
+                  </div>
+                </div>
+              ) : submitted ? (
                 <div className="py-6 text-center">
                   <div className="text-5xl" aria-hidden="true">
                     🎉
