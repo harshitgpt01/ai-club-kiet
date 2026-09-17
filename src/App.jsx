@@ -9,6 +9,8 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import JoinUs from "./pages/JoinUs";
 import SplashScreen from "./components/SplashScreen";
+import ResultsAnnouncement from "./components/ResultsAnnouncement";
+import Results from "./pages/Results";
 
 function ScrollTop() {
   const { pathname, hash } = useLocation();
@@ -30,11 +32,13 @@ function ScrollTop() {
 function App() {
   // Show splash only once per browser session (on first load / fresh tab).
   const [showSplash, setShowSplash] = useState(() => {
-    return !sessionStorage.getItem("aiclub_splash_shown");
+    try { return !sessionStorage.getItem("aiclub_splash_shown"); }
+    catch { return true; }
   });
 
   const handleSplashDone = () => {
-    sessionStorage.setItem("aiclub_splash_shown", "true");
+    try { sessionStorage.setItem("aiclub_splash_shown", "true"); }
+    catch { /* Keep navigation usable if browser storage is unavailable. */ }
     setShowSplash(false);
   };
 
@@ -43,6 +47,7 @@ function App() {
       <ScrollTop />
 
       {showSplash && <SplashScreen onDone={handleSplashDone} />}
+      {!showSplash && <ResultsAnnouncement />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,6 +58,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/join" element={<JoinUs />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </BrowserRouter>
   );

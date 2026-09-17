@@ -1,0 +1,1243 @@
+[
+  {
+    "domain": "AI Security",
+    "students": [
+      {
+        "name": "Abhyuday Arya",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Prabhat Rajput",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Aditya Rastogi",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Amit singh",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "VIMAL SHUKLA",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Umang Jaiswal",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Vaibhavi Garg",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Vaibhav Maurya",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Madhav Muthreja",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Ankush",
+        "branch": "AIML-A",
+        "learningDomain": "AI Security",
+        "workingDomain": "Not specified",
+        "year": "Not specified"
+      },
+      {
+        "name": "Anshul",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Akshat Kumar Singh",
+        "branch": "CSE - AI",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Anshita Sharma",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "BHAVYA TAYAL",
+        "branch": "IT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Harshika Tyagi",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "purva jain",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aman Jha",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHAH INZAMAMUL HAQUE",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tejsvi Kalunia",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Media and Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhinav Agarwal",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tarasha",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravi Kumar",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravleen Kaur",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Meenal Mishra",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI Security",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditya Raj Jain",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "RONAK TYAGI",
+        "branch": "CSE -CS",
+        "learningDomain": "AI SECURITY",
+        "workingDomain": "Not specified",
+        "year": "1st Year"
+      },
+      {
+        "name": "BHAVYA GARG",
+        "branch": "IT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arya Shah",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Not specified",
+        "year": "Not specified"
+      },
+      {
+        "name": "Divya Verma",
+        "branch": "CSE AIML",
+        "learningDomain": "AI SECURITY",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhinav Singh",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web dev",
+        "year": "1st Year"
+      }
+    ]
+  },
+  {
+    "domain": "AI & ML",
+    "students": [
+      {
+        "name": "Aditya Verma",
+        "branch": "CSIT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gracy Ray",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyanshu Prajapati",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Surabhi Singh",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arpan Bishnoi",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aarush Bhatia",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditi Agarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Nikhil Anand",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Rishabh Gupta",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Atharv",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ananya raj",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHRESHTHA RANJAN",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravi Shenkar Umrao",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gauri Bansal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arush Gupta",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ridhima Arora",
+        "branch": "CSE-DS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gauri Gupta",
+        "branch": "IT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tanmay Pandey",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Annanya Vasisht",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Krati Bansal",
+        "branch": "CSE-AI",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aanchal Agarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyanshi Jain",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhayraj Choudhary",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ananya Malik",
+        "branch": "IT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "ANUSHKA",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Atharv Jain",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aarav Arora",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Deepali Singhal",
+        "branch": "CSE(DS)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Divyansh Aggarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "harsh sharma",
+        "branch": "CSE-AI",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "Not specified"
+      },
+      {
+        "name": "Hemani Bhasin",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Janvi",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Kartik Goel",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Kushagra Tandon",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Praduman Goyal",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "Not specified"
+      },
+      {
+        "name": "Mehak Mishra",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Akansha Jain",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyansh",
+        "branch": "CSIT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHIVANSH RATHORE",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tanmay Pandey",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Daksh Kaushik",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Media & Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Medhavi Kaushik",
+        "branch": "Cse AI",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "ananya Tiwari",
+        "branch": "Cs",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Media&Graphic",
+        "year": "1st Year"
+      },
+      {
+        "name": "arjun sharma",
+        "branch": "IT",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Management",
+        "year": "1st Year"
+      },
+      {
+        "name": "kirti tomar",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gauri Sharma",
+        "branch": "CSE - CYBERSECURITY",
+        "learningDomain": "AI & ML",
+        "workingDomain": "CR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ilma Saeed",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tanmay Pandey",
+        "branch": "IT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Not specified",
+        "year": "Not specified"
+      },
+      {
+        "name": "Parth Bindal",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "ujjwal Vishwakarma",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Peehu",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "samriddhi singh",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "HIMANSHI",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Harshit Kumar",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "CR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Mansi Arya",
+        "branch": "CSE AI",
+        "learningDomain": "Ai & ml",
+        "workingDomain": "PR and management",
+        "year": "Not specified"
+      }
+    ]
+  },
+  {
+    "domain": "Web Development",
+    "students": [
+      {
+        "name": "Mehak Mishra",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Akansha Jain",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyansh",
+        "branch": "CSIT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHIVANSH RATHORE",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Hemani Bhasin",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Janvi",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Kartik Goel",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Kushagra Tandon",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ananya raj",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHRESHTHA RANJAN",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravi Shenkar Umrao",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gauri Bansal",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arush Gupta",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ridhima Arora",
+        "branch": "CSE - DS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gauri Gupta",
+        "branch": "IT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tanmay Pandey",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Annanya Vasisht",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Krati Bansal",
+        "branch": "CSE - AI",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyanshu Prajapati",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHRESHTHA RANJAN",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Surabhi Singh",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aanchal Agarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyanshi Jain",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditi Agarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhayraj Choudhary",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ananya Malik",
+        "branch": "IT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "ANUSHKA",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditya Verma",
+        "branch": "CSIT",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Gracy Ray",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Priyanshu Prajapati",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Surabhi Singh",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arpan Bishnoi",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aarush Bhatia",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditi Agarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Nikhil Anand",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Rishabh Gupta",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Medhavi Kaushik",
+        "branch": "Cse AI",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "kirti tomar",
+        "branch": "aiml",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aditya Raj Jain",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Akshat Kumar Singh",
+        "branch": "CSE - AI",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Anshita Sharma",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "BHAVYA TAYAL",
+        "branch": "IT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Harshika Tyagi",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhinav Agarwal",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tarasha",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravi Kumar",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Ravleen Kaur",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhinav Singh",
+        "branch": "CS",
+        "learningDomain": "Web dev",
+        "workingDomain": "AI Security",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tanmay Pandey",
+        "branch": "CSE(AI)",
+        "learningDomain": "None",
+        "workingDomain": "Web Development",
+        "year": "1st Year"
+      },
+      {
+        "name": "Madhav Muthreja",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "VIMAL SHUKLA",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Umang Jaiswal",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Vaibhavi Garg",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Web Development",
+        "year": "2nd Year"
+      }
+    ]
+  },
+  {
+    "domain": "Management & PR",
+    "students": [
+      {
+        "name": "Atharv",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Divyansh Aggarwal",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "arjun sharma",
+        "branch": "IT",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "SHAH INZAMAMUL HAQUE",
+        "branch": "CSE",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Mansi Arya",
+        "branch": "CSE AI",
+        "learningDomain": "Not specified",
+        "workingDomain": "Management & PR",
+        "year": "Not specified"
+      },
+      {
+        "name": "Parth Bindal",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "ujjwal Vishwakarma",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Peehu",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "samriddhi singh",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "HIMANSHI",
+        "branch": "IT",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "BHAVYA GARG",
+        "branch": "IT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Abhyuday Arya",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Aditya Rastogi",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "VIMAL SHUKLA",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Umang Jaiswal",
+        "branch": "CSE(Cyber Security)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Vaibhav Maurya",
+        "branch": "CSE(AI)",
+        "learningDomain": "AI Security",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Vanshika dahiya",
+        "branch": "CSE(AI)",
+        "learningDomain": "Not specified",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Darshika Rajpoot",
+        "branch": "CSE(AIML)",
+        "learningDomain": "Not specified",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Divya Verma",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI SECURITY",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      },
+      {
+        "name": "Arpit Chauhan",
+        "branch": "CSE(AIML)",
+        "learningDomain": "Not specified",
+        "workingDomain": "Management & PR",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Ilma Saeed",
+        "branch": "CSE",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Management & PR",
+        "year": "1st Year"
+      }
+    ]
+  },
+  {
+    "domain": "Corporate Relations",
+    "students": [
+      {
+        "name": "Harshit Kumar",
+        "branch": "CSE AIML",
+        "learningDomain": "AI&ML",
+        "workingDomain": "Corporate Relations",
+        "year": "2nd Year"
+      },
+      {
+        "name": "Gauri Sharma",
+        "branch": "CSE - CYBERSECURITY",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Corporate Relations",
+        "year": "1st Year"
+      }
+    ]
+  },
+  {
+    "domain": "Graphics",
+    "students": [
+      {
+        "name": "Aman Ayush",
+        "branch": "CSIT",
+        "learningDomain": "Not specified",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Deepali Singhal",
+        "branch": "CSE(DS)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aarav Arora",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Manashvi gupta",
+        "branch": "CSE(AI)",
+        "learningDomain": "Not specified",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Atharv Jain",
+        "branch": "CS",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Deepali Singhal",
+        "branch": "CSE(DS)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Daksh Kaushik",
+        "branch": "CSE(AIML)",
+        "learningDomain": "AI & ML",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "ananya Tiwari",
+        "branch": "CS",
+        "learningDomain": "Ai & Ml",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Aman Jha",
+        "branch": "CS",
+        "learningDomain": "AI Security",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Tejsvi Kalunia",
+        "branch": "CSIT",
+        "learningDomain": "AI Security",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Meenal Mishra",
+        "branch": "CSE - AIML",
+        "learningDomain": "AI Security",
+        "workingDomain": "Graphics",
+        "year": "1st Year"
+      },
+      {
+        "name": "Parth Garg",
+        "branch": "B.Pharma",
+        "learningDomain": "Not specified",
+        "workingDomain": "Graphics",
+        "year": "2nd Year"
+      }
+    ]
+  }
+]

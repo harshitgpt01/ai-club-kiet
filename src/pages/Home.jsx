@@ -184,7 +184,7 @@ function Home() {
     <motion.div className="site-shell relative overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
       <Navbar />
 
-      <NoticeMarquee />
+      <NoticeMarquee text="Results are Out." />
 
       <section id="hero" className="cyber-hero page-hero relative min-h-[760px] overflow-hidden pb-16 gutter lg:min-h-screen">
         <ParticleField />
@@ -205,11 +205,11 @@ function Home() {
               Machine Learning, Data Science, and emerging technologies.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Link to="/about" className="primary-button min-w-44">
-                Explore More <FiArrowRight aria-hidden="true" />
+              <Link to="/results" className="primary-button min-w-44">
+                View Results <FiArrowRight aria-hidden="true" />
               </Link>
-              <Link to="/join" className="ghost-button min-w-60">
-                <FiUsers aria-hidden="true" /> Join Our Community
+              <Link to="/about" className="ghost-button min-w-44">
+                Explore More <FiArrowRight aria-hidden="true" />
               </Link>
             </motion.div>
             <motion.a variants={fadeUp} href="#about" className="mt-9 inline-flex items-center gap-3 text-sky-300 no-underline">

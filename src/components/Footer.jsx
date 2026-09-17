@@ -10,6 +10,7 @@ const navigate = [
   ["Projects", "/projects"],
   ["Gallery", "/gallery"],
   ["Team", "/team"],
+  ["Results", "/results"],
   ["Contact", "/contact"],
 ];
 

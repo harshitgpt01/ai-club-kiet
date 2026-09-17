@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import logoMark from "../assets/logo-mark.png";
 
-// Every entry points at a real route, so all eight pages are reachable from the
+// Every entry points at a real route, so all pages are reachable from the
 // nav and the nav agrees with the footer. Home keeps its section ids, so older
 // /#about style deep links still scroll correctly.
 const links = [
@@ -15,13 +15,15 @@ const links = [
   { to: "/projects", label: "Projects" },
   { to: "/gallery", label: "Gallery" },
   { to: "/team", label: "Team" },
+  { to: "/results", label: "Results" },
   { to: "/contact", label: "Contact" },
 ];
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState(null);
   const { pathname } = useLocation();
+  const menuOpen = menuPath === pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);
@@ -29,10 +31,6 @@ function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // Covers browser back/forward; the per-link handler covers tapping the route
-  // you are already on, which leaves the pathname unchanged.
-  useEffect(() => setMenuOpen(false), [pathname]);
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50">
@@ -58,7 +56,7 @@ function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-7 lg:flex xl:gap-9">
+          <div className="hidden items-center gap-5 xl:flex">
             {links.map((link) => (
               <Link
                 key={link.to}
@@ -80,17 +78,17 @@ function Navbar() {
 
           <Link
             to="/join"
-            className="hidden shrink-0 rounded-full border border-sky-300/70 px-6 py-2.5 font-semibold text-white no-underline shadow-[0_0_24px_rgba(37,99,235,0.45)] transition hover:border-sky-200 hover:bg-white/5 lg:inline-flex"
+            className="hidden shrink-0 rounded-full border border-sky-300/70 px-6 py-2.5 font-semibold text-white no-underline shadow-[0_0_24px_rgba(37,99,235,0.45)] transition hover:border-sky-200 hover:bg-white/5 xl:inline-flex"
           >
             Join Us
           </Link>
 
           <button
             type="button"
-            className="icon-button lg:hidden"
+            className="icon-button xl:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => setMenuPath(menuOpen ? null : pathname)}
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </button>
@@ -104,14 +102,14 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="glass-panel mx-4 mt-3 rounded-xl p-3 lg:hidden"
+            className="glass-panel mx-4 mt-3 rounded-xl p-3 xl:hidden"
           >
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {links.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => setMenuPath(null)}
                   className={`rounded-lg border px-3 py-3 text-sm font-bold no-underline ${
                     pathname === link.to
                       ? "border-sky-300/40 bg-sky-300/10 text-sky-100"
@@ -122,7 +120,7 @@ function Navbar() {
                 </Link>
               ))}
             </div>
-            <Link to="/join" onClick={() => setMenuOpen(false)} className="primary-button mt-3 w-full">
+            <Link to="/join" onClick={() => setMenuPath(null)} className="primary-button mt-3 w-full">
               Join Us
             </Link>
           </motion.div>

@@ -3,6 +3,19 @@
 The club website — React 19 + Vite 8, Tailwind CSS v4, Framer Motion, and
 Supabase for recruitment applications.
 
+## Results announcement
+
+The homepage announces “Results are Out.” after the intro animation. Dismissing
+the popup or selecting View Results hides it for the current browser session.
+The Results navigation item and homepage button remain available afterward.
+
+`/results` displays the approved workbook data in domain-separated
+tables, with separate learning and working domain columns. Duplicate entries are
+intentional. The downloadable files live in `public/results/`; the displayed data
+lives in `src/data/results.json`. Update all three together when results change.
+Only the five published columns are included; the original registration details
+and contact information are not bundled. No new environment variables are needed.
+
 ## Local development
 
 ```bash

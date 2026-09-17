@@ -1,6 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap");
 @import "tailwindcss";
 
+@layer components {
+  .results-announcement {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(32rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    border: 1px solid rgba(125, 211, 252, .35);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: #f2f7ff;
+    background: radial-gradient(circle at 50% 0%, #16396a, #081436 65%);
+    box-shadow: 0 24px 100px #0009;
+  }
+  .results-announcement::backdrop { background: #020819c9; backdrop-filter: blur(7px); }
+  .results-close { position: absolute; top: 1rem; right: 1rem; }
+  .results-announcement-icon { display: grid; place-items: center; width: 4rem; height: 4rem; margin: 0 auto 1.5rem; border-radius: 1rem; background: #38bdf81a; border: 1px solid #7dd3fc55; color: #7dd3fc; font-size: 2rem; }
+  .results-announcement h2 { margin: 1rem 0; font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 900; line-height: 1.2; }
+  .results-announcement p:not(.eyebrow) { margin-bottom: 1.75rem; color: #cbd5e1; line-height: 1.7; }
+  .results-announcement .primary-button { width: 100%; }
+  .results-sheet { margin-bottom: 2rem; overflow: hidden; border: 1px solid #b5c8e5; border-radius: 1rem; background: white; color: #25344b; }
+  .results-sheet h2 { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .5rem 1rem; margin: 0; padding: 1.3rem 1rem; background: #e6edf8; color: #233e68; font-size: 1.25rem; font-weight: 800; text-align: center; }
+  .results-sheet h2 span { font-size: .8rem; font-weight: 500; color: #516782; }
+  .results-table-scroll { overflow-x: auto; }
+  .results-sheet table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: .875rem; }
+  .results-sheet thead { background: #233e68; color: white; }
+  .results-sheet thead th { padding: 1rem; text-align: left; font-weight: 700; }
+  .results-sheet tbody th, .results-sheet td { padding: .9rem 1rem; text-align: left; font-weight: 400; border-bottom: 1px solid #e6edf8; }
+  .results-sheet tbody th { font-weight: 600; }
+  .results-sheet tbody tr:nth-child(even) { background: #f3f6fa; }
+  .results-sheet tbody tr:hover { background: #e9f3fc; }
+  .results-sheet td:last-child { white-space: nowrap; }
+  @media (max-width: 640px) {
+    .results-announcement { padding: 3rem 1.4rem 1.75rem; }
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Design tokens.
 
