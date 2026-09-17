@@ -1,5 +1,4 @@
 
-import { FiDownload, FiFileText } from "react-icons/fi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import sections from "../data/results.json";
@@ -14,10 +13,6 @@ export default function Results() {
             <span className="eyebrow">AI Club KIET</span>
             <h1 className="cyber-title mt-6 text-4xl font-black text-white sm:text-5xl">Results are <span className="neon-text">Out.</span></h1>
             <p className="mx-auto mt-5 max-w-xl leading-7 text-slate-300">Find your name and explore your learning and working domains.</p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <a href="/results/ai-club-results.pdf" download className="primary-button"><FiDownload aria-hidden="true" /> Download PDF</a>
-              <a href="/results/ai-club-results.xlsx" download className="ghost-button"><FiFileText aria-hidden="true" /> Download Excel</a>
-            </div>
           </div>
         </section>
         <section className="gutter pb-20" aria-label="Results spreadsheet">

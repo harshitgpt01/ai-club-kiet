@@ -42,7 +42,7 @@ export default function ResultsAnnouncement() {
       <span className="results-announcement-icon"><FiAward aria-hidden="true" /></span>
       <p className="eyebrow">AI Club KIET</p>
       <h2 id="results-announcement-title">Results are Out.</h2>
-      <p id="results-announcement-description">Explore the results across all domains and download your copy.</p>
+      <p id="results-announcement-description">Explore the results across all learning and working domains.</p>
       <Link to="/results" className="primary-button" onClick={dismiss}>View Results <FiArrowRight aria-hidden="true" /></Link>
     </dialog>
   );
